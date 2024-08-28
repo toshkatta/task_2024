@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "infrastructure/*": ["./app/infrastructure/*"],
+      "ui-kit": ["./app/views/ui-kit/*"],
+      "pages": ["./app/views/pages/*"],
+    }
+  }
+}

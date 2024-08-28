@@ -1,0 +1,7 @@
+@use '../../containers';
+
+.trade-crypto {
+  display: flex;
+  flex-direction: column;
+  @include containers.coin-details-section;
+}

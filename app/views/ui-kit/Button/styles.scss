@@ -1,0 +1,62 @@
+.btn {
+  --font-size: 1.5rem;
+  --icon-font-size: 1rem;
+  --padding: 0.625rem;
+  --radius: 2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  outline: none;
+  cursor: pointer;
+  border: 0;
+  box-sizing: border-box;
+  font-weight: 600;
+  font-size: var(--font-size);
+  padding: var(--padding);
+  border-radius: var(--radius);
+
+  &.btn-size-small {
+    --font-size: 1rem;
+    --icon-font-size: 0.5rem;
+    --padding: 0.375rem;
+    --radius: 1rem;
+  }
+
+  &.btn-size-large {
+    --font-size: 1.5rem;
+    --icon-font-size: 1rem;
+    --padding: 0.625rem;
+    --radius: 2rem;
+  }
+
+  &.btn-color-grey {
+    color: var(--color-black);
+    background-color: var(--color-grey);
+  }
+
+  &.btn-color-purple {
+    color: var(--color-white);
+    background-color: var(--color-purple);
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  i {
+    font-size: var(--icon-font-size);
+  }
+}
+
+
+.btn-is-disabled,
+.btn-is-disabled:hover,
+.btn-is-disabled:active,
+.btn-is-disabled:focus {
+  background: rgb(56 60 77 / 30%);
+  color: rgb(255 255 255 / 20%);
+  cursor: not-allowed;
+  box-shadow: none;
+}

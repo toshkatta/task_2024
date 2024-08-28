@@ -1,0 +1,35 @@
+@use '../../containers';
+
+.performance {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  @include containers.coin-details-section;
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .performance-indicators {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--color-grey);
+    border-radius: 1rem;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      flex: 1;
+      text-align: center;
+
+      &:nth-child(2) {
+        border-left: 1px solid #BCC0CC;
+        border-right: 1px solid #BCC0CC;
+      }
+    }
+  }
+}

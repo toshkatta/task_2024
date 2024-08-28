@@ -1,0 +1,16 @@
+.coin-details {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 1286px;
+  margin: auto;
+
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}

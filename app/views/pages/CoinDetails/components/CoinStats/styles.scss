@@ -1,0 +1,46 @@
+@use '../../containers';
+
+.coin-stats {
+  display: flex;
+  flex-direction: column;
+  @include containers.coin-details-section;
+
+  .graph {
+    height: 350px;
+    background: linear-gradient(45deg, purple, darkblue);
+  }
+}
+
+.coin-stats-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+
+  .logo {
+    aspect-ratio: 1;
+    width: 2rem;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    padding: 0.5rem;
+    background-color: orange;
+    border-radius: 100%;
+  }
+
+  .watchlist-btn {
+    margin-left: auto;
+  }
+}
+
+.coin-stats-body {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  .currency-dropdown-selected {
+    margin-left: auto;
+  }
+}

@@ -1,0 +1,40 @@
+@use '../../containers';
+
+.market-stats {
+  display: grid;
+  grid-template-rows: 3fr 2fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: start;
+  @include containers.coin-details-section;
+}
+
+.activity-indicator {
+  grid-column: span 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-grey);
+  border-radius: 1rem;
+
+  .activity-icons {
+    display: flex;
+    gap: 2px;
+  }
+
+  i {
+    display: block;
+    min-height: 10px;
+    border: 1px solid var(--color-purple);
+    border-radius: 2px;
+  }
+}
+
+.popularity-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-grey);
+  border-radius: 1rem;
+}
