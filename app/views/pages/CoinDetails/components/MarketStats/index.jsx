@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import {
   selectCoinMarketCap,
   selectCoinMaxSupply,
+  selectCoinRank,
   selectCoinSupply,
   selectCoinVolume,
 } from '@/store/coinDetails/selectors';
@@ -17,50 +18,51 @@ const MarketStats = () => {
   const volume    = useSelector(selectCoinVolume);
   const supply    = useSelector(selectCoinSupply);
   const maxSupply = useSelector(selectCoinMaxSupply);
+  const rank      = useSelector(selectCoinRank);
 
   const supplyPercent = Math.floor((supply / maxSupply) * 100);
 
   return (
     <section className="market-stats">
-      <h4 className='text-2xl'>Market stats</h4>
+      <h4 className="text-2xl font-medium">Market stats</h4>
 
       <div className="activity-indicator">
-        <span className='text-sm'>Activity</span>
-        <span className='text-sm'>70% buy</span>
+        <span className="text-md opacity-50">Activity</span>
+        <span className="text-md text-purple">70% buy</span>
         <div className="activity-icons">
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
+          <i className="pill bg-purple"/>
+          <i className="pill bg-purple"/>
+          <i className="pill bg-purple"/>
+          <i className="pill bg-purple"/>
+          <i className="pill bg-purple"/>
+          <i className="pill bg-purple"/>
+          <i className="pill bg-purple"/>
+          <i className="pill bg-black opacity-50"/>
+          <i className="pill bg-black opacity-50"/>
+          <i className="pill bg-black opacity-50"/>
         </div>
-        <span className='text-sm'>30% sell</span>
+        <span className="text-md">30% sell</span>
       </div>
 
       <div className="popularity-container">
-        <span className='text-sm'>Popularity:</span>
-        <span className='text-sm'>#1</span>
+        <span className="text-md opacity-50">Popularity:</span>
+        <span className="text-md font-bold">#{rank}</span>
       </div>
 
-      <span className='text-sm font-medium'>Market cap</span>
-      <LocalizedPrice compact price={marketCap} className='font-extrabold text-lg' />
-      <span className='text-sm opacity-50'>33% of crypto market</span>
+      <span className="text-md font-medium">Market cap</span>
+      <LocalizedPrice compact priceUSD={marketCap} className="font-extrabold text-lg" />
+      <span className="text-md opacity-50">33% of crypto market</span>
 
-      <span className='text-sm font-medium'>Volume (24h)</span>
-      <LocalizedPrice compact price={volume} className='font-extrabold text-lg' />
+      <span className="text-md font-medium">Volume (24h)</span>
+      <LocalizedPrice compact priceUSD={volume} className="font-extrabold text-lg" />
       <ChangePercent percent={45.02} />
 
-      <span className='text-sm font-medium'>Circulating supply</span>
-      <LocalizedPrice compact price={supply} currency='btc' className='font-extrabold text-lg' />
-      <span className='text-sm opacity-50'>{supplyPercent}% of total supply</span>
+      <span className="text-md font-medium">Circulating supply</span>
+      <LocalizedPrice compact priceUSD={supply} cryptocurrency="btc" className="font-extrabold text-lg" />
+      <span className="text-md opacity-50">{supplyPercent}% of total supply</span>
 
-      <span className='text-sm font-medium'>Typical hold time</span>
-      <span className='font-extrabold text-lg'>85 days</span>
+      <span className="text-md font-medium">Typical hold time</span>
+      <span className="font-extrabold text-lg">85 days</span>
     </section>
   );
 };

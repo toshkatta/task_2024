@@ -17,7 +17,7 @@
     align-items: center;
     padding: 1rem;
     background-color: var(--color-grey);
-    border-radius: 1rem;
+    border-radius: 0.5rem;
 
     li {
       display: flex;
@@ -26,9 +26,5 @@
       flex: 1;
       text-align: center;
     }
-  }
-
-  .market-percent {
-    color: var(--color-black);
   }
 }

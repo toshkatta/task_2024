@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { defaultLocale } from '@/domain/Locale';
+import { defaultLocale } from '@/domain/Rates';
 
 import './styles.scss';
 
@@ -9,11 +9,12 @@ const ChangePercent = ({
   percent,
   locale = defaultLocale,
   className = '',
+  compact = false,
 }) => {
   const formatted = (percent / 100).toLocaleString(locale, {
     style: 'percent',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+    minimumFractionDigits: compact ? 0 : 2,
+    maximumFractionDigits: compact ? 0 : 2,
   });
   const isPositive = percent > 0;
 
@@ -38,6 +39,7 @@ ChangePercent.propTypes = {
   percent: PropTypes.number.isRequired,
   locale: PropTypes.string,
   className: PropTypes.string,
+  compact: PropTypes.bool,
 };
 
 export default ChangePercent;

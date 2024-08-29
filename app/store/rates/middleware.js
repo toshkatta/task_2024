@@ -1,5 +1,7 @@
-import { supportedCurrencies } from '@/domain/Locale';
+import { supportedCurrencies } from '@/domain/Rates';
+
 import createMiddleware from '@/store/middlewareCreator';
+
 import CoinCapAPIClient from '@/infrastructure/API/http/CoinCapAPIClient';
 
 import { applicationMounted } from '../app/actions';

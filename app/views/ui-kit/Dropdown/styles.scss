@@ -1,0 +1,12 @@
+.dropdown-title {
+  display: flex;
+  gap: 0.25rem;
+
+  i {
+    transition: transform 0.3s linear;
+
+    &.is-rotated {
+      transform: rotateX(-180deg);
+    }
+  }
+}

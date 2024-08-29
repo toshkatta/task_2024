@@ -1,6 +1,5 @@
-import { supportedCurrencies } from '@/domain/Locale';
-
-import { reverseObject } from './general';
+import { supportedCurrencies } from '@/domain/Rates';
+import { reverseObject } from '@/domain/Parsing';
 
 const supportedCurrencyToRateIDMapping = {
   [supportedCurrencies.EUR]: 'euro',

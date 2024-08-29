@@ -24,7 +24,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-white);
     padding: 0.5rem;
     background-color: orange;
     border-radius: 100%;
@@ -43,10 +42,6 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-
-  .currency-dropdown-selected {
-    margin-left: auto;
-  }
 
   .localized-price {
     display: flex;

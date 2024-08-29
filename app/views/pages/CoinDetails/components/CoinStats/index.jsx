@@ -11,10 +11,10 @@ import LocalizedPrice from '@/views/components/LocalizedPrice';
 import ChangePercent from '@/views/components/ChangePercent';
 import VerticalDivider from '@/views/components/VerticalDivider';
 
-import {
-  ButtonGreyL,
-  ButtonGreyS,
-} from '@/views/ui-kit/Button';
+import { ButtonGreyL } from '@/views/ui-kit/Button';
+
+import CurrencyDropdown from '../CurrencyDropdown';
+import TimeDropdown from '../TimeDropdown';
 
 import './styles.scss';
 
@@ -27,8 +27,8 @@ const CoinStats = () => {
   return (
     <section className="coin-stats">
       <section className="coin-stats-header">
-        <i className={`logo fab fa-${symbol.toLowerCase()}`} />
-        <h2 className='text-4xl'>{name}</h2>
+        <i className={`logo text-white fab fa-${symbol.toLowerCase()}`} />
+        <h2 className="text-4xl">{name}</h2>
         <em className="text-sm abbreviation">{symbol}</em>
 
         <ButtonGreyL className="watchlist-btn">
@@ -39,22 +39,16 @@ const CoinStats = () => {
 
       <section className="coin-stats-body">
         <LocalizedPrice
-          price={price}
+          priceUSD={price}
           className="localized-price text-4xl font-bold"
-          symbolClassname='currency-symbol text-base'
+          symbolClassname="currency-symbol text-base"
         />
         <VerticalDivider />
         <ChangePercent percent={percent} />
 
-        <span className="text-sm currency-dropdown-selected">$ USD</span>
-        <ButtonGreyS>
-          <i className="fas fa-chevron-down" />
-        </ButtonGreyS>
+        <CurrencyDropdown />
 
-        <span className="text-sm time-dropdown-selected">24 hours</span>
-        <ButtonGreyS>
-          <i className="fas fa-chevron-down" />
-        </ButtonGreyS>
+        <TimeDropdown />
       </section>
 
       <div className="graph"></div>

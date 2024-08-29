@@ -3,37 +3,42 @@ import PropTypes from 'prop-types';
 
 import {
   currencyToLocaleMapping,
-  defaultCurrency,
-} from '@/domain/Locale';
+} from '@/domain/Rates';
 
-import { selectRateSymbolById } from '@/store/rates/selectors';
+import { selectSelectedRate } from '@/store/rates/selectors';
 
 const LocalizedPrice = ({
-  price,
-  currency = defaultCurrency,
+  priceUSD,
+  cryptocurrency,
   compact = false,
   className = '',
   symbolClassname = '',
 }) => {
-  const symbol = useSelector(selectRateSymbolById(currency));
+  const selected = useSelector(selectSelectedRate);
 
-  const locale = currencyToLocaleMapping[currency] || defaultCurrency;
+  if (!selected) return null;
+
+  const price = cryptocurrency
+    ? priceUSD
+    : priceUSD / selected.rateUsd;
+
+  const locale = currencyToLocaleMapping[selected.id];
   const localized = compact
     ? price.toLocaleString(locale, { notation: 'compact', maximumFractionDigits: 1 })
     : price.toLocaleString(locale, { maximumFractionDigits: 2 });
 
   return (
     <strong className={className}>
-      { symbol && <span className={symbolClassname}>{symbol}</span> }
+      { !cryptocurrency && <span className={symbolClassname}>{selected.currencySymbol}</span> }
       <span>{localized}</span>
-      { !symbol && <span className={symbolClassname}>&nbsp;{currency.toUpperCase()}</span> }
+      { cryptocurrency && <span className={symbolClassname}>&nbsp;{cryptocurrency.toUpperCase()}</span> }
     </strong>
   );
 };
 
 LocalizedPrice.propTypes = {
-  price: PropTypes.number.isRequired,
-  currency: PropTypes.string,
+  priceUSD: PropTypes.number.isRequired,
+  cryptocurrency: PropTypes.string,
   compact: PropTypes.bool,
   className: PropTypes.string,
   symbolClassname: PropTypes.string,
