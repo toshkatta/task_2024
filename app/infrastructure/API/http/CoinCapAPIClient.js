@@ -1,6 +1,15 @@
 import HttpClient from './HttpClient';
+
 import { APICoinToCoin } from '../parsing/coin';
-import { APIRateToRate, currencyToRateID } from '../parsing/rate';
+import {
+  APIRateToRate,
+  currencyToRateID,
+  intervalToAPIInterval,
+  intervalToAPIStartTime,
+} from '../parsing/rate';
+
+const EXCHANGE_ID = 'alterdice'; // biggest exchange on coincap
+const QUOTE_ID = 'tether';
 
 const rates = [
   {id: 'british-pound-sterling', symbol: 'GBP', currencySymbol: '£', type: 'fiat', rateUsd: '1.3156492531717014'},
@@ -35,6 +44,17 @@ class CoinCapAPIClient extends HttpClient {
     const response = rates[count];
     count++;
     return APIRateToRate(response);
+  }
+
+  getCandles({ interval, cryptocurrency }) {
+    return this.get('/candles', {
+      exchange: EXCHANGE_ID,
+      interval: intervalToAPIInterval(interval),
+      baseId: cryptocurrency,
+      quoteId: QUOTE_ID,
+      // start: intervalToAPIStartTime(interval),
+      // end: new Date().getTime(),
+    });
   }
 }
 
