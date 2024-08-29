@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { isNumeric } from 'infrastructure/validation/isNumeric';
+import { isNumeric } from '@/infrastructure/validation/isNumeric';
 
 import { Input } from '../Input';
 
@@ -9,7 +9,7 @@ const isBase10 = (value) => value.substr(0, 2) !== '0x' && value.substr(0, 2) !=
 const format = (value) => {
   if (
     !isNumeric(value) ||
-    !value.trim().length ||
+    !value?.trim().length ||
     !isBase10(value)
   ) {
     return '';
@@ -36,9 +36,7 @@ export const CurrencyInput = (currencyInputProps) => {
   };
 
   const onChange = (e) => {
-    console.log('target value:', e.target.value);
-    console.log('prase float:', parseFloat(e.target.value));
-    currencyInputProps.onChange(parseFloat(e.target.value));
+    currencyInputProps.onChange(parseFloat(e.target.value.replace(/,/g, '')));
   }
 
   useEffect(() => {

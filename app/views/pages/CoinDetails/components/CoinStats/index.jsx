@@ -5,16 +5,16 @@ import {
   selectCoinName,
   selectCoinPrice,
   selectCoinSymbol,
-} from 'store/coinDetails/selectors';
+} from '@/store/coinDetails/selectors';
 
-import LocalizedPrice from 'components/LocalizedPrice';
-import ChangePercent from 'components/ChangePercent';
-import VerticalDivider from 'components/VerticalDivider';
+import LocalizedPrice from '@/views/components/LocalizedPrice';
+import ChangePercent from '@/views/components/ChangePercent';
+import VerticalDivider from '@/views/components/VerticalDivider';
 
 import {
   ButtonGreyL,
   ButtonGreyS,
-} from 'ui-kit/Button';
+} from '@/views/ui-kit/Button';
 
 import './styles.scss';
 

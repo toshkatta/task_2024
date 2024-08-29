@@ -1,6 +1,6 @@
-import CoinCapAPIClient from 'infrastructure/API/http/CoinCapAPIClient';
+import CoinCapAPIClient from '@/infrastructure/API/http/CoinCapAPIClient';
 
-import createMiddleware from 'store/middlewareCreator';
+import createMiddleware from '@/store/middlewareCreator';
 
 import {
   coinDetailsFailure,

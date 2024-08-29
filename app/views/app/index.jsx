@@ -1,4 +1,4 @@
-import CoinDetails from '../pages/CoinDetails';
+import CoinDetails from '@/views/pages/CoinDetails';
 
 const App = () => (
   <div className="app">

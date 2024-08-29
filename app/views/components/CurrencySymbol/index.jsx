@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   currencyToLocaleMapping,
   defaultCurrency,
-} from 'domain/Locale';
+} from '@/domain/Locale';
 
 const CurrencySymbol = ({
   currency = defaultCurrency,

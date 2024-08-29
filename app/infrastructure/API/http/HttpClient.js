@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import assert from 'infrastructure/validation/assert';
+import assert from '@/infrastructure/validation/assert';
 
 import APIError from './APIError';
 

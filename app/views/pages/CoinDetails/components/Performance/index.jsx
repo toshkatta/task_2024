@@ -1,3 +1,6 @@
+import VerticalDivider from '@/views/components/VerticalDivider';
+import ChangePercent from '@/views/components/ChangePercent';
+
 import './styles.scss';
 
 const Performance = () => {
@@ -13,14 +16,18 @@ const Performance = () => {
           <span className="text-sm">Past year</span>
         </li>
 
+        <VerticalDivider block />
+
         <li>
           <span className="text-sm">Bitcoin</span>
-          <span className="text-sm">+334%</span>
+          <ChangePercent className='font-black' percent={334} />
         </li>
+
+        <VerticalDivider block />
 
         <li>
           <span className="text-sm">Market</span>
-          <span className="text-sm">+476%</span>
+          <ChangePercent className='market-percent font-black' percent={476} />
         </li>
       </ul>
     </section>

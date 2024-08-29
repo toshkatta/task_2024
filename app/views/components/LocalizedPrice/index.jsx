@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import {
   currencyToLocaleMapping,
   defaultCurrency,
-} from 'domain/Locale';
+} from '@/domain/Locale';
 
-import CurrencySymbol from 'components/CurrencySymbol';
+import CurrencySymbol from '@/views/components/CurrencySymbol';
 
 import './styles.scss';
 

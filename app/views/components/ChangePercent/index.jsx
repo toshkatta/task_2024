@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { defaultLocale } from 'domain/Locale';
+import { defaultLocale } from '@/domain/Locale';
 
 import './styles.scss';
 

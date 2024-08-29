@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { ButtonPurpleL } from 'ui-kit/Button';
-import { CurrencyInput } from 'ui-kit/CurrencyInput';
+import { CurrencyInput } from '@/views/ui-kit/CurrencyInput';
+import { ButtonPurpleL } from '@/views/ui-kit/Button';
 
 import './styles.scss';
 

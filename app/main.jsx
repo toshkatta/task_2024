@@ -3,12 +3,12 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import { store } from 'store/configureStore';
+import { store } from '@/store/configureStore';
 
-import CoinDetails from './views/pages/CoinDetails';
-import ErrorPage from './views/pages/ErrorPage';
+import CoinDetails from '@/views/pages/CoinDetails';
+import ErrorPage from '@/views/pages/ErrorPage';
 
-import './views/stylesheets/main.scss';
+import '@/views/stylesheets/main.scss';
 
 const router = createBrowserRouter([
   {

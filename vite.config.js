@@ -1,17 +1,17 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from "path";
+import url from 'url'
+
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      infrastructure: '/app/infrastructure',
-      store: '/app/store',
-      'ui-kit': '/app/views/ui-kit',
-      pages: '/app/views/pages',
-      components: '/app/views/components',
-      domain: '/app/domain',
+      '@': path.resolve(__dirname, './app'),
     },
   },
 })

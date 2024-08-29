@@ -25,11 +25,10 @@
       gap: 1rem;
       flex: 1;
       text-align: center;
-
-      &:nth-child(2) {
-        border-left: 1px solid #BCC0CC;
-        border-right: 1px solid #BCC0CC;
-      }
     }
+  }
+
+  .market-percent {
+    color: var(--color-black);
   }
 }

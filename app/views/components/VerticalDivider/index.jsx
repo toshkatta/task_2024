@@ -5,10 +5,12 @@ import './styles.scss';
 
 const VerticalDivider = ({
   className = '',
+  block = false,
 }) => {
   const classes = classNames({
     [className]: !!className,
     'vertical-divider': true,
+    'block': block,
   });
 
   return (
@@ -18,6 +20,7 @@ const VerticalDivider = ({
 
 VerticalDivider.propTypes = {
   className: PropTypes.string,
+  block: PropTypes.bool,
 };
 
 export default VerticalDivider;
