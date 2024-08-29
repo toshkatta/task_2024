@@ -7,8 +7,11 @@ export default defineConfig({
   resolve: {
     alias: {
       infrastructure: '/app/infrastructure',
+      store: '/app/store',
       'ui-kit': '/app/views/ui-kit',
       pages: '/app/views/pages',
+      components: '/app/views/components',
+      domain: '/app/domain',
     },
   },
 })
