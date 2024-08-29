@@ -1,6 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import { store } from 'store/configureStore';
 
 import CoinDetails from './views/pages/CoinDetails';
 import ErrorPage from './views/pages/ErrorPage';
@@ -14,13 +17,15 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />
   },
   {
-    path: '/coins/:coinName',
+    path: '/coins/:id',
     element: <CoinDetails />,
   },
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>,
 );
