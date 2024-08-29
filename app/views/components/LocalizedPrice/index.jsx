@@ -1,41 +1,32 @@
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import {
   currencyToLocaleMapping,
   defaultCurrency,
 } from '@/domain/Locale';
 
-import CurrencySymbol from '@/views/components/CurrencySymbol';
-
-import './styles.scss';
+import { selectRateSymbolById } from '@/store/rates/selectors';
 
 const LocalizedPrice = ({
   price,
   currency = defaultCurrency,
+  compact = false,
   className = '',
   symbolClassname = '',
 }) => {
+  const symbol = useSelector(selectRateSymbolById(currency));
+
   const locale = currencyToLocaleMapping[currency] || defaultCurrency;
-  const localized = price.toLocaleString(locale, { maximumFractionDigits: 2 });
-
-  const classes = classNames({
-    [className]: !!className,
-    'localized-price': true,
-    'text-4xl': true,
-    'font-bold': true,
-  });
-
-  const symbolClasses = classNames({
-    [symbolClassname]: !!symbolClassname,
-    'currency-symbol': true,
-    'text-base': true,
-  });
+  const localized = compact
+    ? price.toLocaleString(locale, { notation: 'compact', maximumFractionDigits: 1 })
+    : price.toLocaleString(locale, { maximumFractionDigits: 2 });
 
   return (
-    <strong className={classes}>
-      <CurrencySymbol currency={currency} className={symbolClasses} />
+    <strong className={className}>
+      { symbol && <span className={symbolClassname}>{symbol}</span> }
       <span>{localized}</span>
+      { !symbol && <span className={symbolClassname}>&nbsp;{currency.toUpperCase()}</span> }
     </strong>
   );
 };
@@ -43,6 +34,7 @@ const LocalizedPrice = ({
 LocalizedPrice.propTypes = {
   price: PropTypes.number.isRequired,
   currency: PropTypes.string,
+  compact: PropTypes.bool,
   className: PropTypes.string,
   symbolClassname: PropTypes.string,
 };

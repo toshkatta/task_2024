@@ -4,3 +4,7 @@ export const selectCoinName          = (state) => selectCoinDetailsState(state).
 export const selectCoinSymbol        = (state) => selectCoinDetailsState(state).symbol;
 export const selectCoinPrice         = (state) => selectCoinDetailsState(state).priceUsd;
 export const selectCoinChangePercent = (state) => selectCoinDetailsState(state).changePercent24Hr;
+export const selectCoinMarketCap     = (state) => selectCoinDetailsState(state).marketCapUsd;
+export const selectCoinVolume        = (state) => selectCoinDetailsState(state).volumeUsd24Hr;
+export const selectCoinSupply        = (state) => selectCoinDetailsState(state).supply;
+export const selectCoinMaxSupply     = (state) => selectCoinDetailsState(state).maxSupply;

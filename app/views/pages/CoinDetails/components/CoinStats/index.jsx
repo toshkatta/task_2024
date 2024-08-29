@@ -38,7 +38,11 @@ const CoinStats = () => {
       </section>
 
       <section className="coin-stats-body">
-        <LocalizedPrice price={price} className="coin-price" />
+        <LocalizedPrice
+          price={price}
+          className="localized-price text-4xl font-bold"
+          symbolClassname='currency-symbol text-base'
+        />
         <VerticalDivider />
         <ChangePercent percent={percent} />
 

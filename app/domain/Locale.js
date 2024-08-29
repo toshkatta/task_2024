@@ -1,10 +1,14 @@
 export const defaultLocale = 'en-US';
 export const defaultCurrency = 'usd';
 
-export const currencyToLocaleMapping = {
-  usd: 'en-US',
-  eur: 'de-DE',
-  gbp: 'en-GB',
+export const supportedCurrencies = {
+  USD: 'usd',
+  EUR: 'eur',
+  GBP: 'gbp',
 };
 
-export const supportedCurrencies = Object.keys(currencyToLocaleMapping);
+export const currencyToLocaleMapping = {
+  [supportedCurrencies.USD]: 'en-US',
+  [supportedCurrencies.EUR]: 'de-DE',
+  [supportedCurrencies.GBP]: 'en-GB',
+};
