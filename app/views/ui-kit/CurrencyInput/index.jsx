@@ -36,6 +36,8 @@ export const CurrencyInput = (currencyInputProps) => {
   };
 
   const onChange = (e) => {
+    console.log('target value:', e.target.value);
+    console.log('prase float:', parseFloat(e.target.value));
     currencyInputProps.onChange(parseFloat(e.target.value));
   }
 

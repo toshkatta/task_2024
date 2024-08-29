@@ -31,6 +31,7 @@ const Button = ({
   const buttonClasses = classNames({
     [className]: className !== undefined,
     'btn': true,
+    'font-semibold': true,
     [`btn-size-${size}`]: true,
     [`btn-color-${color}`]: true,
     'btn-is-disabled': disabled,

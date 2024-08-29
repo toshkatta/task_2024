@@ -1,0 +1,9 @@
+.change-percent {
+  &.positive {
+    color: var(--color-green);
+  }
+
+  &.negative {
+    color: var(--color-red);
+  }
+}

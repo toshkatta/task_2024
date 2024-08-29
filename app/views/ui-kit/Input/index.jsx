@@ -41,6 +41,7 @@ export const Input = (inputProps) => {
 
   const inputClassNames = classNames({
     'input': true,
+    'text-base': true,
     'is-focused': isFocused,
     'has-error': hasError,
   }, className);

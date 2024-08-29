@@ -1,29 +1,26 @@
-import Heading from 'ui-kit/Typography/Heading';
-import Text from 'ui-kit/Typography/Text';
-
 import './styles.scss';
 
 const Performance = () => {
   return (
     <section className="performance">
       <div className="title">
-        <Heading size="h3">Performance</Heading>
-        <Text size="sm">Update September 13.21 7:27 PM GMT+2</Text>
+        <h3 className='text-3xl'>Performance</h3>
+        <span className="text-sm">Update September 13.21 7:27 PM GMT+2</span>
       </div>
 
       <ul className="performance-indicators">
         <li>
-          <Text size="sm">Past year</Text>
+          <span className="text-sm">Past year</span>
         </li>
 
         <li>
-          <Text size="sm">Bitcoin</Text>
-          <Text size="sm">+334%</Text>
+          <span className="text-sm">Bitcoin</span>
+          <span className="text-sm">+334%</span>
         </li>
 
         <li>
-          <Text size="sm">Market</Text>
-          <Text size="sm">+476%</Text>
+          <span className="text-sm">Market</span>
+          <span className="text-sm">+476%</span>
         </li>
       </ul>
     </section>
