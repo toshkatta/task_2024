@@ -7,19 +7,14 @@ import {
   Title,
   Tooltip,
   Legend,
+  TimeScale,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import 'chartjs-adapter-date-fns';
 
-import {
-  defaultLocale,
-  rateToLocaleMapping,
-  supportedTimeIntervals,
-} from '@/domain/Rates';
+import { rateToLocaleMapping } from '@/domain/Rates';
 
-import {
-  selectCandles,
-  selectSelectedInterval,
-} from '@/store/candles/selectors';
+import { selectCandles } from '@/store/candles/selectors';
 import { selectSelectedRate } from '@/store/rates/selectors';
 
 ChartJS.register(
@@ -29,6 +24,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
+  TimeScale,
 );
 
 ChartJS.defaults.font.family = "'Roboto', Helvetica, Arial, sans-serif";
@@ -88,7 +84,6 @@ const hoverLine = {
 
 const CandleGraph = () => {
   const candles  = useSelector(selectCandles);
-  const interval = useSelector(selectSelectedInterval);
   const rate     = useSelector(selectSelectedRate);
 
   if (!rate) return null;
@@ -150,16 +145,17 @@ const CandleGraph = () => {
         },
       },
       x: {
-        offsetAfterAutoskip: true,
+        type: 'time',
         ticks: {
-          autoSkip: true,
-          autoSkipPadding: 28,
+          major: {
+            enabled: true,
+          },
           maxRotation: 0,
           padding: 8,
-          font: {
+          font: (context) => ({
             size: 14,
-            weight: 'bold',
-          },
+            weight: context?.tick?.major ? 'bold' : 'normal',
+          }),
         },
         border: {
           dash: [8, 8],
@@ -176,21 +172,8 @@ const CandleGraph = () => {
       intersect: false,
     },
   };
-
-  const candleDateToString = (ms) => {
-    const date = new Date(ms);
-    const time = date.toLocaleTimeString(defaultLocale, { hour: 'numeric', minute: 'numeric', hour12: true })
-
-    if (interval === supportedTimeIntervals.DAY) return time;
-
-    const weekDay = date.toLocaleDateString(defaultLocale, { weekday: 'long' });
-    if (interval === supportedTimeIntervals.FIVE_DAYS) return `${weekDay} at ${time}`;
-
-    return date.toLocaleDateString(defaultLocale, { day: '2-digit', month: '2-digit', year: 'numeric' });
-  };
-
   const data = {
-    labels: localizedCandles.map((c) => candleDateToString(c.date)),
+    labels: localizedCandles.map((c) => c.date),
     datasets: [
       {
         label: '',
