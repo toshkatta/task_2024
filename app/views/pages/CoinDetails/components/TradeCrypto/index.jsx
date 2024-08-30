@@ -17,6 +17,7 @@ const TradeCrypto = () => {
 
       <div className="trade-inputs">
         <CurrencyInput
+          className="font-medium"
           name="fiat-input"
           label="You will pay"
           placeholder="0.00"

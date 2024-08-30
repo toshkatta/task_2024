@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { isNumeric } from '@/infrastructure/validation/isNumeric';
 
@@ -6,7 +6,7 @@ import { Input } from '../Input';
 
 const isBase10 = (value) => value.substr(0, 2) !== '0x' && value.substr(0, 2) !== '0o';
 
-const format = (value) => {
+const validate = (value) => {
   if (
     !isNumeric(value) ||
     !value?.trim().length ||
@@ -15,45 +15,35 @@ const format = (value) => {
     return '';
   }
 
-  return `${parseFloat(value).toLocaleString('en-US', {
-    maximumFractionDigits: 2,
-  })}`;
+  return value;
 };
 
 export const CurrencyInput = (currencyInputProps) => {
-  const [formattedValue, setFormattedValue] = useState(currencyInputProps.value);
+  const [validValue, setValidValue] = useState(currencyInputProps.value);
 
   const onBlur = (event) => {
     const { value } = event.target;
 
-    if (!value.includes(currencyInputProps.currency)) {
-      const formatted = format(value);
+    const valid = validate(value);
+    if (valid === '') return;
 
-      if (formatted) setFormattedValue(formatted);
-    }
+    const valueToFixed = parseFloat(valid).toFixed(2);
+    setValidValue(valueToFixed === '0.00' ? '' : valueToFixed);
 
     if (typeof currencyInputProps.onBlur === 'function') currencyInputProps.onBlur(event);
   };
 
-  const onChange = (e) => {
-    currencyInputProps.onChange(parseFloat(e.target.value.replace(/,/g, '')));
+  const onChange = (event) => {
+    const { value } = event.target;
+
+    if (value === '') return setValidValue('');
+
+    const valid = validate(value);
+    if (valid === '') return;
+
+    currencyInputProps.onChange(parseFloat(value));
+    setValidValue(valid);
   }
-
-  useEffect(() => {
-    const { value } = currencyInputProps;
-
-    if (!value) return setFormattedValue('');
-    if (!isNumeric(value)) return setFormattedValue(value);
-
-    setFormattedValue(value);
-  }, [currencyInputProps.value]);
-
-  useEffect(() => {
-    const { value } = currencyInputProps;
-    const formatted = format(value);
-
-    if (formatted) setFormattedValue(formatted);
-  }, []);
 
   return (
     <Input
@@ -62,7 +52,7 @@ export const CurrencyInput = (currencyInputProps) => {
       inputMode="numeric"
       noAutoComplete
       onBlur={onBlur}
-      value={formattedValue}
+      value={validValue}
       onChange={onChange}
     />
   );
