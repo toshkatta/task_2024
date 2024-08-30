@@ -14,6 +14,7 @@ export const Input = (inputProps) => {
     disabled = false,
     type = 'text',
     className = '',
+    containerClassName = '',
     hasError = false,
     noAutoComplete = false,
     onFocus = () => null,
@@ -38,18 +39,24 @@ export const Input = (inputProps) => {
     onBlur(e);
   };
 
-  const inputClassNames = classNames({
+  const inputClasses = classNames({
     'input': true,
     'text-base': true,
     'text-black': true,
     'is-focused': isFocused,
     'has-error': hasError,
-  }, className);
+    [className]: !!className,
+  });
+
+  const containerClasses = classNames({
+    'input-container': true,
+    [containerClassName]: !!containerClassName,
+  });
 
   const autoComplete = noAutoComplete ? 'off' : 'on';
 
   return (
-    <section className="input-container">
+    <section className={containerClasses}>
       {
         label &&
         <label className="input-label" htmlFor={name}>{label}</label>
@@ -59,7 +66,7 @@ export const Input = (inputProps) => {
         name={name}
         inputMode={inputMode}
         placeholder={!isFocused ? placeholder : ''}
-        className={inputClassNames}
+        className={inputClasses}
         autoComplete={autoComplete}
         disabled={disabled}
         value={value}

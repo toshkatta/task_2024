@@ -14,6 +14,7 @@ const Dropdown = ({
   onSelect,
   title,
   className = '',
+  menuClassName = '',
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -22,9 +23,23 @@ const Dropdown = ({
     setIsDropdownOpen(false);
   };
 
+  const menuClasses = classNames({
+    'dropdown-menu': true,
+    [menuClassName]: !!menuClassName,
+  });
+
   const menuCallback = () => (
-    <Menu onSelect={handleSelect}>
-      {options.map((o) => (<MenuItem key={o.id}>{o.element}</MenuItem>))}
+    <Menu onSelect={handleSelect} className={menuClasses}>
+      {
+        options.map((o) => (
+          <MenuItem
+            key={o.id}
+            className="dropdown-option font-medium pointer"
+          >
+            {o.element}
+          </MenuItem>
+        ))
+      }
     </Menu>
   );
 
@@ -33,7 +48,6 @@ const Dropdown = ({
     'fa-chevron-down': true,
     'is-rotated': isDropdownOpen,
   });
-
 
   return (
     <div className={className}>
@@ -58,7 +72,11 @@ Dropdown.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
-      element: PropTypes.element,
+      element: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element,
+        PropTypes.array,
+      ]),
     })
   ).isRequired,
   onSelect: PropTypes.func.isRequired,
@@ -68,6 +86,7 @@ Dropdown.propTypes = {
     PropTypes.array,
   ]).isRequired,
   className: PropTypes.string,
+  menuClassName: PropTypes.string,
 };
 
 export default Dropdown;

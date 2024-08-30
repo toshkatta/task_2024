@@ -35,11 +35,11 @@
     background-color: var(--color-grey);
 
     &:hover {
-      background-color: hsl(from var(--color-grey) h s calc(l + 10));
+      background-color: hsl(from var(--color-grey) h s calc(l + 3));
     }
 
     &:active {
-      background-color: hsl(from var(--color-grey) h s calc(l - 10));
+      background-color: hsl(from var(--color-grey) h s calc(l - 5));
     }
   }
 

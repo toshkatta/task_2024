@@ -90,6 +90,7 @@ input {
   outline: none;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
 
   &::-moz-focus-inner {
     border: 0;

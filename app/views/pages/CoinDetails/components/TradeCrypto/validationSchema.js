@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { isNumeric } from '@/infrastructure/validation/isNumeric';
 
 const tradeCryptoSchema = ({ minimum, maximum }) => Yup.object().shape({
-  fiatAmount: Yup.string()
+  payAmount: Yup.string()
     .test('has a value', 'Please enter a valid amount.', (value) => (
       !!value
     ))

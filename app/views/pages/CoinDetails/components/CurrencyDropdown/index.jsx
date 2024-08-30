@@ -21,7 +21,7 @@ const CurrencyDropdown = () => {
 
   const options = rateIDs.map((id) => ({
     id,
-    element: <Currency id={id} className="font-medium pointer" />
+    element: <Currency id={id}/>
   }));
 
   const onSelect = (key) => dispatch(rateSelected(key));
