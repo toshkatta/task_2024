@@ -1,9 +1,8 @@
-import {
-  defaultCurrency,
-  defaultTimeInterval,
-} from '@/domain/Rates';
+import { defaultTimeInterval } from '@/domain/Rates';
 
 import createMiddleware from '@/store/middlewareCreator';
+
+import { candlesLoaded } from '@/store/candles/actions';
 
 import CoinCapAPIClient from '@/infrastructure/API/http/CoinCapAPIClient';
 
@@ -14,6 +13,7 @@ import {
 } from './actions';
 
 const loadCoinDetails = async (store, next, action) => {
+  next(action);
   const { dispatch } = store;
 
   try {
@@ -27,34 +27,24 @@ const loadCoinDetails = async (store, next, action) => {
 };
 
 const loadCandles = async (store, next, action) => {
-  // const { dispatch } = store;
+  next(action);
+  const { dispatch } = store;
 
   try {
     const response = await CoinCapAPIClient.getCandles({
-      cryptocurrency: action.payload,
-      currency: defaultCurrency,
       interval: defaultTimeInterval,
+      price: action.payload.priceUsd,
     });
 
-    // dispatch(coinDetailsLoaded(response));
-    console.log('candle response:', response);
+    dispatch(candlesLoaded(response));
   } catch (err) {
-    // dispatch(coinDetailsFailure(err));
     console.error(err);
   }
 };
 
-const onCoinDetailsVisit = async (store, next, action) => {
-  next(action);
-
-  await Promise.all([
-    loadCoinDetails(store, next, action),
-    loadCandles(store, next, action),
-  ]);
-};
-
 const handlers = {
-  [coinDetailsVisited.type]: onCoinDetailsVisit,
+  [coinDetailsVisited.type]: loadCoinDetails,
+  [coinDetailsLoaded.type]: loadCandles,
 };
 
 const middleware = createMiddleware(handlers);

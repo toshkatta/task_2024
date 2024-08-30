@@ -15,6 +15,7 @@ import { ButtonGreyL } from '@/views/ui-kit/Button';
 
 import CurrencyDropdown from '../CurrencyDropdown';
 import TimeDropdown from '../TimeDropdown';
+import CandleGraph from '../CandleGraph';
 
 import './styles.scss';
 
@@ -27,7 +28,7 @@ const CoinStats = () => {
   return (
     <section className="coin-stats">
       <section className="coin-stats-header">
-        <i className={`logo text-white fab fa-${symbol.toLowerCase()}`} />
+        <i className={`logo text-white fab fa-${symbol.toLowerCase()} fa-${name.toLowerCase()}`} />
         <h2 className="text-4xl">{name}</h2>
         <em className="text-sm abbreviation">{symbol}</em>
 
@@ -51,7 +52,7 @@ const CoinStats = () => {
         <TimeDropdown />
       </section>
 
-      <div className="graph"></div>
+      <CandleGraph />
     </section>
   );
 };

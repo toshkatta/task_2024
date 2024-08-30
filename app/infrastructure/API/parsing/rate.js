@@ -20,8 +20,8 @@ export const APIRateToRate = (rate) => ({
 
 const intervalToAPIIntervalMapping = {
   [supportedTimeIntervals.DAY]: 'm5',
-  [supportedTimeIntervals.FIVE_DAYS]: 'm50',
-  [supportedTimeIntervals.MONTH]: 'h5',
+  [supportedTimeIntervals.FIVE_DAYS]: 'h1',
+  [supportedTimeIntervals.MONTH]: 'h6',
   [supportedTimeIntervals.YEAR]: 'h60',
   [supportedTimeIntervals.FIVE_YEARS]: 'h300',
 };

@@ -29,7 +29,7 @@ const ChangePercent = ({
 
   return (
     <b className={classes}>
-      { isPositive ? '+' : '-' }
+      { isPositive && '+' }
       {formatted}
     </b>
   );

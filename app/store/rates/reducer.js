@@ -1,13 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import {
-  defaultCurrency,
-  defaultTimeInterval,
-} from '@/domain/Rates';
+import { defaultCurrency } from '@/domain/Rates';
 import { arrayToById } from '@/domain/Parsing';
 
 import {
-  intervalSelected,
   rateSelected,
   ratesFailure,
   ratesLoaded,
@@ -17,7 +13,6 @@ const initialState = {
   byID: {},
   allIDs: [],
   selectedID: defaultCurrency,
-  selectedInterval: defaultTimeInterval,
   isLoading: true,
   hasError: false,
 };
@@ -39,10 +34,6 @@ const ratesReducer = createReducer(initialState, (builder) => {
 
   builder.addCase(rateSelected, (state, action) => {
     state.selectedID = action.payload;
-  });
-
-  builder.addCase(intervalSelected, (state, action) => {
-    state.selectedInterval = action.payload;
   });
 });
 

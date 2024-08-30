@@ -2,9 +2,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { supportedTimeIntervals } from '@/domain/Rates';
 
-import {selectSelectedInterval } from '@/store/rates/selectors';
+import { selectSelectedInterval } from '@/store/candles/selectors';
 
-import { intervalSelected } from '@/store/rates/actions';
+import { intervalSelected } from '@/store/candles/actions';
 
 import Dropdown from '@/views/ui-kit/Dropdown';
 
