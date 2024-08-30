@@ -24,7 +24,6 @@ const loadCoinDetails = async (store, next, action) => {
     dispatch(coinDetailsLoaded(response));
   } catch (err) {
     dispatch(coinDetailsFailure(err));
-    console.error(err);
   }
 };
 

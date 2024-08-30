@@ -42,7 +42,7 @@ class HttpClient {
       const { data: { data: result } } = await axios(requestOpts);
       return result;
     } catch (error) {
-      console.log('Axios error: ', error);
+      console.error('Axios error: ', error);
 
       throw new APIError(error);
     }

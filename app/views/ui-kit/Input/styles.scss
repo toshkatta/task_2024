@@ -5,21 +5,25 @@
 
   .input {
     width: 100%;
-    height: 52px;
+    height: 3rem;
     padding: 1rem;
     outline: 0;
     background-color: var(--color-grey);
     border-radius: 1rem;
-    line-height: 52px;
+    line-height: 3rem;
+    border: 2px solid transparent;
+    transition: border-color 0.2s linear;
 
     &:invalid {
       box-shadow: inherit;
     }
-  }
 
-  &.has-error {
-    .input {
-      border: 2px solid var(--color-red);
+    &.has-error {
+      border-color: var(--color-red);
+    }
+
+    &:disabled {
+      color: rgb(0 0 0 / 0.5);
     }
   }
 }

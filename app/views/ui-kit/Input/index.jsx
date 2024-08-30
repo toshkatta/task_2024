@@ -7,7 +7,7 @@ export const Input = (inputProps) => {
   const {
     name,
     label,
-    pattern,
+    errorMessage,
     inputMode,
     placeholder,
     value='',
@@ -19,7 +19,6 @@ export const Input = (inputProps) => {
     onFocus = () => null,
     onError = () => null,
     onBlur = () => null,
-    onKeyDown = () => null,
     onChange = () => null,
     children,
   } = inputProps;
@@ -59,8 +58,6 @@ export const Input = (inputProps) => {
         type={type}
         name={name}
         inputMode={inputMode}
-        pattern={pattern}
-        onKeyDown={onKeyDown}
         placeholder={!isFocused ? placeholder : ''}
         className={inputClassNames}
         autoComplete={autoComplete}
@@ -71,6 +68,10 @@ export const Input = (inputProps) => {
         onChange={onChange}
       />
       {children}
+      {
+        hasError &&
+        <span className="text-red text-xs">{errorMessage}</span>
+      }
     </section>
   );
 };

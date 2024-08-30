@@ -33,29 +33,44 @@
   &.btn-color-grey {
     color: var(--color-black);
     background-color: var(--color-grey);
+
+    &:hover {
+      background-color: hsl(from var(--color-grey) h s calc(l + 10));
+    }
+
+    &:active {
+      background-color: hsl(from var(--color-grey) h s calc(l - 10));
+    }
   }
 
   &.btn-color-purple {
     color: var(--color-white);
     background-color: var(--color-purple);
+
+    &:hover {
+      background-color: hsl(from var(--color-purple) h s calc(l + 10));
+    }
+
+    &:active {
+      background-color: hsl(from var(--color-purple) h s calc(l - 10));
+    }
   }
 
   &::-moz-focus-inner {
     border: 0;
   }
 
+  &.btn-is-disabled,
+  &.btn-is-disabled:hover,
+  &.btn-is-disabled:active,
+  &.btn-is-disabled:focus {
+    background: rgb(56 60 77 / 30%);
+    color: rgb(255 255 255 / 20%);
+    cursor: auto;
+    box-shadow: none;
+  }
+
   i {
     font-size: var(--icon-font-size);
   }
-}
-
-
-.btn-is-disabled,
-.btn-is-disabled:hover,
-.btn-is-disabled:active,
-.btn-is-disabled:focus {
-  background: rgb(56 60 77 / 30%);
-  color: rgb(255 255 255 / 20%);
-  cursor: not-allowed;
-  box-shadow: none;
 }

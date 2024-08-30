@@ -1,38 +1,92 @@
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Form, Formik } from 'formik';
 
-import { CurrencyInput } from '@/views/ui-kit/CurrencyInput';
+import {
+  maximumTransactionAmount,
+  minimumTransactionAmount,
+} from '@/domain/Transactions';
+
+import {
+  selectCoinPrice,
+  selectCoinSymbol,
+} from '@/store/coinDetails/selectors';
+import { selectSelectedRate } from '@/store/rates/selectors';
+
 import { ButtonPurpleL } from '@/views/ui-kit/Button';
+import {
+  CurrencyInputField,
+  ErrorFocus,
+} from '@/views/ui-kit/FormFields';
+
+import { isNumeric } from '@/infrastructure/validation/isNumeric';
+
+import tradeCryptoSchema from './validationSchema';
 
 import './styles.scss';
 
 const TradeCrypto = () => {
-  const [fiatAmount, setFiatAmount] = useState('');
 
-  return(
+  const cryotoSymbol = useSelector(selectCoinSymbol);
+  const cryotoPrice  = useSelector(selectCoinPrice);
+  const rate         = useSelector(selectSelectedRate);
+
+  if (!rate) return null;
+
+  const getCryptoAmount = (fiatAmount) => (
+    isNumeric(fiatAmount)
+      ? (fiatAmount * rate.rateUsd / cryotoPrice).toString()
+      : ''
+  );
+
+  const handleSubmit = (values) => {
+    console.log('values:', values);
+  };
+
+  return (
     <section className="trade-crypto">
       <div className="trade-btns">
-        <button>Buy BTC</button>
-        <button>Sell BTC</button>
+        <button>Buy {cryotoSymbol}</button>
+        <button>Sell {cryotoSymbol}</button>
       </div>
 
-      <div className="trade-inputs">
-        <CurrencyInput
-          className="font-medium"
-          name="fiat-input"
-          label="You will pay"
-          placeholder="0.00"
-          value={fiatAmount}
-          onChange={setFiatAmount}
-        />
+      <Formik
+        initialValues={{ fiatAmount: '', cryotoAmount: '' }}
+        initialTouched={{ fiatAmount: true }}
+        validationSchema={tradeCryptoSchema({
+          minimum: minimumTransactionAmount,
+          maximum: maximumTransactionAmount,
+        })}
+        onSubmit={handleSubmit}
+      >
+        {({ values, errors }) => (
+          <Form autoComplete="off" className="trade-inputs">
+              <CurrencyInputField
+                className="font-medium"
+                name="fiatAmount"
+                placeholder="0.00"
+                label="You will pay"
+              />
 
-        {/* <CurrencyInput
-          name="crypto-input"
-          label="You will receive"
-          placeholder="0.00"
-        /> */}
-      </div>
+              <CurrencyInputField
+                className="font-medium"
+                name="cryptoAmount"
+                placeholder="0.00"
+                label="You will receive"
+                disabled
+                value={getCryptoAmount(values.fiatAmount)}
+              />
 
-      <ButtonPurpleL>Buy BTC</ButtonPurpleL>
+              <ErrorFocus />
+
+              <ButtonPurpleL
+                type="submit"
+                disabled={!!errors.fiatAmount}
+              >
+                Buy {cryotoSymbol}
+              </ButtonPurpleL>
+          </Form>
+        )}
+      </Formik>
     </section>
   );
 };

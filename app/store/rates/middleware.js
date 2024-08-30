@@ -22,7 +22,6 @@ const loadRates = async (store, next, action) => {
 
     dispatch(ratesLoaded(responses));
   } catch (err) {
-    console.log('rate error:', err);
     dispatch(ratesFailure(err));
   }
 };
