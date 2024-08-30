@@ -1,56 +1,45 @@
-import { supportedTimeIntervals } from '@/domain/Rates';
-
 import { APIRateToRate } from '../parsing/rate';
 
-const rowCount = 12;
-const colCount = 12;
-const candleCount = rowCount * colCount;
+const coinHistoryRecordToCandle = ({ price, prevClose, time, supply, }) => ({
+  open: prevClose,
+  close: price,
+  date: time,
+  supply,
+});
 
-const intervalMapping = {
-  [supportedTimeIntervals.DAY]: 24 * 60 * 60 * 1000,
-  [supportedTimeIntervals.FIVE_DAYS]: 5 * 24 * 60 * 60 * 1000,
-  [supportedTimeIntervals.MONTH]: 30 * 24 * 60 * 60 * 1000,
-  [supportedTimeIntervals.YEAR]: 365 * 24 * 60 * 60 * 1000,
-  [supportedTimeIntervals.FIVE_YEARS]: 5 * 365 * 24 * 60 * 60 * 1000,
-};
+const APICallHistoryToCallHistory = (c) => ({
+  supply: parseFloat(c.circulatingSupply),
+  price: parseFloat(c.priceUsd),
+  time: c.time,
+});
 
-const createCandle = ({ prevClose, prevDateMs, interval }) => {
-  const high = prevClose + (Math.random() * (prevClose / 10));
-  const low = prevClose - (Math.random() * (prevClose / 10));
-  const close = low + (Math.random() * (high - low));
+export const callHistoryToCandles = (callHisotry) => {
+  const parsed = callHisotry.map(APICallHistoryToCallHistory);
+  const first = parsed[0];
 
-  return {
-    open: prevClose,
-    high,
-    low,
-    close,
-    date: prevDateMs - (intervalMapping[interval] / candleCount),
-  };
-};
-
-export const mockCandles = ({ price, interval }) => {
-  const initial = createCandle({
-    prevClose: price,
-    prevDateMs: new Date().getTime(),
-    interval,
+  const initial = coinHistoryRecordToCandle({
+    price: first.price,
+    prevClose: first.price * 0.995,
+    time: first.time,
+    supply: first.supply,
   });
 
-  return Array.from(new Array(candleCount))
-    .reduce((arr) => {
-      if (!arr.length) return [initial];
+  return parsed
+    .reduce((arr, e, i) => {
+      if (!i) return [initial];
 
-      const prev = arr[arr.length - 1];
+      const prev = arr[i - 1];
 
       return [
         ...arr,
-        createCandle({
+        coinHistoryRecordToCandle({
+          price: e.price,
           prevClose: prev.close,
-          prevDateMs: prev.date,
-          interval,
+          time: e.time,
+          supply: e.supply,
         })
       ];
-    }, [])
-    .reverse();
+    }, []);
 };
 
 export const mockCoinByID = (id) => ({

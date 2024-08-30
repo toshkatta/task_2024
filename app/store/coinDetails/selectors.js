@@ -1,5 +1,6 @@
 const selectCoinDetailsState = (state) => state.coinDetails;
 
+export const selectCoinID            = (state) => selectCoinDetailsState(state).id;
 export const selectCoinName          = (state) => selectCoinDetailsState(state).name;
 export const selectCoinSymbol        = (state) => selectCoinDetailsState(state).symbol;
 export const selectCoinPrice         = (state) => selectCoinDetailsState(state).priceUsd;

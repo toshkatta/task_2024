@@ -4,14 +4,11 @@ import { APICoinToCoin } from '../parsing/coin';
 import {
   APIRateToRate,
   currencyToRateID,
-  // intervalToAPIInterval,
-  // intervalToAPIStartTime,
+  intervalToAPIInterval,
+  intervalToAPIStartTime,
 } from '../parsing/rate';
 
-import { mockCandles } from './mockResponses';
-
-// const EXCHANGE_ID = 'alterdice';
-// const QUOTE_ID = 'tether';
+import { callHistoryToCandles } from './mockResponses';
 
 class CoinCapAPIClient extends HttpClient {
   async getCoinByID(id) {
@@ -20,24 +17,22 @@ class CoinCapAPIClient extends HttpClient {
     return APICoinToCoin(response);
   }
 
+  async getCoinHistoryByID({ id, interval }) {
+    const response = await this.get(`/assets/${id}/history`, {
+      id,
+      interval: intervalToAPIInterval(interval),
+      start: intervalToAPIStartTime(interval),
+      end: new Date().getTime(),
+    });
+
+    return callHistoryToCandles(response);
+  }
+
   async getRateByCurrency(currency) {
     const id = currencyToRateID(currency);
     const response = await this.get(`/rates/${id}`);
 
     return APIRateToRate(response);
-  }
-
-  getCandles({ interval, price }) {
-    // return this.get('/candles', {
-    //   exchange: EXCHANGE_ID,
-    //   interval: intervalToAPIInterval(interval),
-    //   baseId: cryptocurrency,
-    //   quoteId: QUOTE_ID,
-    //   start: intervalToAPIStartTime(interval),
-    //   end: new Date().getTime(),
-    // });
-
-    return mockCandles({ price, interval });
   }
 }
 

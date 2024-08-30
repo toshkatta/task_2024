@@ -12,6 +12,8 @@ import {
   coinDetailsVisited,
 } from './actions';
 
+import { selectCoinID } from './selectors';
+
 const loadCoinDetails = async (store, next, action) => {
   next(action);
   const { dispatch } = store;
@@ -28,12 +30,14 @@ const loadCoinDetails = async (store, next, action) => {
 
 const loadCandles = async (store, next, action) => {
   next(action);
-  const { dispatch } = store;
+
+  const { dispatch, getState } = store;
 
   try {
-    const response = await CoinCapAPIClient.getCandles({
+    const coinID = selectCoinID(getState());
+    const response = await CoinCapAPIClient.getCoinHistoryByID({
       interval: defaultTimeInterval,
-      price: action.payload.priceUsd,
+      id: coinID,
     });
 
     dispatch(candlesLoaded(response));

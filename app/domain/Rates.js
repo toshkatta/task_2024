@@ -1,17 +1,17 @@
 export const defaultLocale = 'en-US';
 
-export const supportedCurrencies = {
+export const supportedRates = {
   USD: 'usd',
   EUR: 'eur',
   GBP: 'gbp',
 };
 
-export const defaultCurrency = supportedCurrencies.USD;
+export const defaultRate = supportedRates.USD;
 
-export const currencyToLocaleMapping = {
-  [supportedCurrencies.USD]: 'en-US',
-  [supportedCurrencies.EUR]: 'en-DE',
-  [supportedCurrencies.GBP]: 'en-GB',
+export const rateToLocaleMapping = {
+  [supportedRates.USD]: 'en-US',
+  [supportedRates.EUR]: 'en-DE',
+  [supportedRates.GBP]: 'en-GB',
 };
 
 export const supportedTimeIntervals = {

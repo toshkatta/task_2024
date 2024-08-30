@@ -1,10 +1,13 @@
-import { supportedCurrencies, supportedTimeIntervals } from '@/domain/Rates';
+import {
+  supportedRates,
+  supportedTimeIntervals,
+} from '@/domain/Rates';
 import { reverseObject } from '@/domain/Parsing';
 
 const currencyToRateIDMapping = {
-  [supportedCurrencies.EUR]: 'euro',
-  [supportedCurrencies.GBP]: 'british-pound-sterling',
-  [supportedCurrencies.USD]: 'united-states-dollar',
+  [supportedRates.EUR]: 'euro',
+  [supportedRates.GBP]: 'british-pound-sterling',
+  [supportedRates.USD]: 'united-states-dollar',
 };
 
 const rateIDToCurrencyMapping = reverseObject(currencyToRateIDMapping);
@@ -19,11 +22,11 @@ export const APIRateToRate = (rate) => ({
 });
 
 const intervalToAPIIntervalMapping = {
-  [supportedTimeIntervals.DAY]: 'm5',
+  [supportedTimeIntervals.DAY]: 'm15',
   [supportedTimeIntervals.FIVE_DAYS]: 'h1',
   [supportedTimeIntervals.MONTH]: 'h6',
-  [supportedTimeIntervals.YEAR]: 'h60',
-  [supportedTimeIntervals.FIVE_YEARS]: 'h300',
+  [supportedTimeIntervals.YEAR]: 'd1',
+  [supportedTimeIntervals.FIVE_YEARS]: 'd1',
 };
 
 export const intervalToAPIInterval = (interval) => intervalToAPIIntervalMapping[interval];

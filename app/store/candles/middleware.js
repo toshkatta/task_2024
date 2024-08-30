@@ -1,6 +1,6 @@
 import createMiddleware from '@/store/middlewareCreator';
 
-import { selectCoinPrice } from '@/store/coinDetails/selectors';
+import { selectCoinID } from '@/store/coinDetails/selectors';
 
 import CoinCapAPIClient from '@/infrastructure/API/http/CoinCapAPIClient';
 
@@ -13,12 +13,12 @@ const loadCandles = async (store, next, action) => {
   next(action);
 
   const { dispatch, getState } = store;
-  const price = selectCoinPrice(getState());
 
   try {
-    const response = await CoinCapAPIClient.getCandles({
+    const coinID = selectCoinID(getState());
+    const response = await CoinCapAPIClient.getCoinHistoryByID({
       interval: action.payload,
-      price,
+      id: coinID,
     });
 
     dispatch(candlesLoaded(response));

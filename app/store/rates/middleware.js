@@ -1,4 +1,4 @@
-import { supportedCurrencies } from '@/domain/Rates';
+import { supportedRates } from '@/domain/Rates';
 
 import createMiddleware from '@/store/middlewareCreator';
 
@@ -16,7 +16,7 @@ const loadRates = async (store, next, action) => {
 
   try {
     const responses = await Promise.all(
-      Object.values(supportedCurrencies)
+      Object.values(supportedRates)
       .map((id) => CoinCapAPIClient.getRateByCurrency(id))
     );
 

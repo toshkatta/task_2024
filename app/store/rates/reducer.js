@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { defaultCurrency } from '@/domain/Rates';
+import { defaultRate } from '@/domain/Rates';
 import { arrayToById } from '@/domain/Parsing';
 
 import {
@@ -12,7 +12,7 @@ import {
 const initialState = {
   byID: {},
   allIDs: [],
-  selectedID: defaultCurrency,
+  selectedID: defaultRate,
   isLoading: true,
   hasError: false,
 };

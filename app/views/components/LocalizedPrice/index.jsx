@@ -1,9 +1,7 @@
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {
-  currencyToLocaleMapping,
-} from '@/domain/Rates';
+import { rateToLocaleMapping } from '@/domain/Rates';
 
 import { selectSelectedRate } from '@/store/rates/selectors';
 
@@ -22,7 +20,7 @@ const LocalizedPrice = ({
     ? priceUSD
     : priceUSD / selected.rateUsd;
 
-  const locale = currencyToLocaleMapping[selected.id];
+  const locale = rateToLocaleMapping[selected.id];
   const localized = compact
     ? price.toLocaleString(locale, { notation: 'compact', maximumFractionDigits: 1 })
     : price.toLocaleString(locale, { maximumFractionDigits: 2 });
