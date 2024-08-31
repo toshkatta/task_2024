@@ -5,6 +5,7 @@ import {
   selectCoinMaxSupply,
   selectCoinRank,
   selectCoinSupply,
+  selectCoinSymbol,
   selectCoinVolume,
 } from '@/store/coinDetails/selectors';
 
@@ -19,8 +20,11 @@ const MarketStats = () => {
   const supply    = useSelector(selectCoinSupply);
   const maxSupply = useSelector(selectCoinMaxSupply);
   const rank      = useSelector(selectCoinRank);
+  const symbol    = useSelector(selectCoinSymbol);
 
-  const supplyPercent = Math.floor((supply / maxSupply) * 100);
+  const supplyPercent = maxSupply
+    ? Math.floor((supply / maxSupply) * 100)
+    : 'N/A';
 
   return (
     <section className="market-stats">
@@ -58,7 +62,7 @@ const MarketStats = () => {
       <ChangePercent percent={45.02} />
 
       <span className="text-md font-medium">Circulating supply</span>
-      <LocalizedPrice compact priceUSD={supply} cryptocurrency="btc" className="font-extrabold text-lg" />
+      <LocalizedPrice compact priceUSD={supply} cryptocurrency={symbol} className="font-extrabold text-lg" />
       <span className="text-md opacity-50">{supplyPercent}% of total supply</span>
 
       <span className="text-md font-medium">Typical hold time</span>

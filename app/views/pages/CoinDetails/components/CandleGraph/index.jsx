@@ -27,7 +27,7 @@ ChartJS.register(
   TimeScale,
 );
 
-ChartJS.defaults.font.family = "'Roboto', Helvetica, Arial, sans-serif";
+ChartJS.defaults.font.family = "'Lato', Helvetica, Arial, sans-serif";
 
 const candleToGraphCandle = (c) => ({
   x: c.date,
@@ -109,6 +109,7 @@ const CandleGraph = () => {
         displayColors: false,
         cornerRadius: 32,
         titleAlign: 'center',
+        bodyAlign: 'center',
         titleFont: {
           size: 10,
         },

@@ -77,7 +77,7 @@ export const Input = (inputProps) => {
       {children}
       {
         hasError &&
-        <span className="text-red text-xs">{errorMessage}</span>
+        <span className="input-error-text text-red text-xs">{errorMessage}</span>
       }
     </section>
   );

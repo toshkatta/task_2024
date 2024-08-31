@@ -7,10 +7,18 @@ import {
   intervalToAPIInterval,
   intervalToAPIStartTime,
 } from '../parsing/rate';
-
-import { callHistoryToCandles } from './mockResponses';
+import { callHistoryToCandles } from '../parsing/coinHistory';
 
 class CoinCapAPIClient extends HttpClient {
+  getCoins({ page, limit, search, ids }) {
+    return this.get('/assets', {
+      limit,
+      offset: page,
+      search,
+      ids,
+    });
+  }
+
   async getCoinByID(id) {
     const response = await this.get(`/assets/${id}`);
 

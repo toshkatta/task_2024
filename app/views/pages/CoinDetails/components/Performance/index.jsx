@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 
 import { selectCoinName } from '@/store/coinDetails/selectors';
 
-import VerticalDivider from '@/views/components/VerticalDivider';
 import ChangePercent from '@/views/components/ChangePercent';
 
 import './styles.scss';
@@ -22,14 +21,10 @@ const Performance = () => {
           <span className="text-md opacity-50">Past year</span>
         </li>
 
-        <VerticalDivider block />
-
         <li>
           <span className="text-md">{coinName}</span>
           <ChangePercent className="font-black" percent={334} compact />
         </li>
-
-        <VerticalDivider block />
 
         <li>
           <span className="text-md">Market</span>

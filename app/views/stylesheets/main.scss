@@ -18,13 +18,11 @@ body {
 
 body {
   background-color: var(--color-grey);
-  position: absolute;
-  inset: 0;
 }
 
-#root {
-  min-height: 100%;
-  width: 100%;
+.full-page {
+  position: absolute;
+  inset: 0;
 }
 
 .opacity-50 {

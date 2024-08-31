@@ -7,15 +7,18 @@ import { applicationMounted } from '@/store/app/actions';
 import CoinDetails from '@/views/pages/CoinDetails';
 import ErrorPage from '@/views/pages/ErrorPage';
 
+import routes from '@/routes';
+
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: routes.home,
     element: <div>Hello world!</div>,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorPage />,
   },
   {
-    path: '/coins/:id',
+    path: routes.coin,
     element: <CoinDetails />,
+    errorElement: <ErrorPage />,
   },
 ]);
 

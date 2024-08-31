@@ -4,11 +4,6 @@
   display: flex;
   flex-direction: column;
   @include containers.coin-details-section;
-
-  .graph {
-    height: 350px;
-    background: linear-gradient(45deg, purple, darkblue);
-  }
 }
 
 .coin-stats-header {
@@ -46,6 +41,9 @@
   .localized-price {
     display: flex;
     gap: 0.25rem;
+    line-height: 1;
+    padding-right: 0.75rem;
+    border-right: 2px solid rgb(0 0 0 / 0.25);
   }
 
   .currency-symbol {

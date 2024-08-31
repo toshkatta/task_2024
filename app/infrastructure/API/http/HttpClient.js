@@ -32,6 +32,7 @@ class HttpClient {
       params,
       data,
       maxBodyLength: Infinity,
+      withCredentials: false,
       headers: {
         'Authorization': `Bearer ${import.meta.env.VITE_API_KEY}`,
       },

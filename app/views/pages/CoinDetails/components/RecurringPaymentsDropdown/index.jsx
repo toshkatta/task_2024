@@ -11,12 +11,7 @@ const intervalToTextMapping = {
   [paymentOptions.MONTHLY]: 'Once per month',
 };
 
-const intervals = [
-  paymentOptions.ONCE,
-  paymentOptions.DAILY,
-  paymentOptions.WEEKLY,
-  paymentOptions.MONTHLY,
-];
+const intervals = Object.values(paymentOptions);
 
 const RecurringPaymentsDropdown = ({
   value,

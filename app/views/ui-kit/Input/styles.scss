@@ -1,7 +1,9 @@
 .input-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding-bottom: 1.5rem;
 
   .input {
     width: 100%;
@@ -25,9 +27,20 @@
     &:disabled {
       color: rgb(0 0 0 / 0.5);
     }
+
+    &:not(:disabled, .has-error) {
+      &:hover {
+        border-color: var(--color-purple);
+      }
+    }
   }
 
   .input-label {
     padding-left: 0.75rem;
+  }
+
+  .input-error-text {
+    position: absolute;
+    bottom: 0;
   }
 }

@@ -3,6 +3,10 @@
   align-items: center;
   gap: 0.375rem;
 
+  &:hover {
+    color: hsl(from var(--color-black) h s calc(l + 30));
+  }
+
   i {
     transition: transform 0.3s linear;
 

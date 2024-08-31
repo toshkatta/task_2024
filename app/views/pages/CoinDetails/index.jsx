@@ -8,6 +8,7 @@ import CoinStats from './components/CoinStats';
 import MarketStats from './components/MarketStats';
 import Performance from './components/Performance';
 import TradeCrypto from './components/TradeCrypto';
+import CoinPrices from './components/CoinPrices';
 
 import './styles.scss';
 
@@ -17,17 +18,19 @@ const CoinDetails = () => {
 
   useEffect(() => {
     dispatch(coinDetailsVisited(params.id));
-  }, []);
+  }, [params.id]);
 
   return (
-    <article className="coin-details">
+    <article className="coin-details full-page">
       <main>
         <CoinStats />
         <MarketStats />
         <Performance />
       </main>
+
       <aside className="sidebar">
         <TradeCrypto />
+        <CoinPrices />
       </aside>
     </article>
   );

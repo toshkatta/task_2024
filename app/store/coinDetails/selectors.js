@@ -8,5 +8,5 @@ export const selectCoinChangePercent = (state) => selectCoinDetailsState(state).
 export const selectCoinMarketCap     = (state) => selectCoinDetailsState(state).marketCapUsd;
 export const selectCoinVolume        = (state) => selectCoinDetailsState(state).volumeUsd24Hr;
 export const selectCoinSupply        = (state) => selectCoinDetailsState(state).supply;
-export const selectCoinMaxSupply     = (state) => selectCoinDetailsState(state).maxSupply;
+export const selectCoinMaxSupply     = (state) => selectCoinDetailsState(state).maxSupply || 0;
 export const selectCoinRank          = (state) => selectCoinDetailsState(state).rank;

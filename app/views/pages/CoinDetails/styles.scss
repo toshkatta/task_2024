@@ -1,6 +1,4 @@
 .coin-details {
-  position: absolute;
-  inset: 0;
   display: grid;
   grid-template-columns: 2fr 1fr;
   align-items: center;
@@ -8,7 +6,8 @@
   max-width: 1286px;
   margin: auto;
 
-  main {
+  main,
+  aside {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;

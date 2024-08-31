@@ -7,19 +7,33 @@ import { candlesLoaded } from '@/store/candles/actions';
 import CoinCapAPIClient from '@/infrastructure/API/http/CoinCapAPIClient';
 
 import {
+  coinsFailure,
+  coinsLoaded,
+} from '@/store/coins/actions';
+
+import {
   coinDetailsFailure,
   coinDetailsLoaded,
   coinDetailsVisited,
 } from './actions';
 
-import { selectCoinID } from './selectors';
-
-const loadCoinDetails = async (store, next, action) => {
-  next(action);
+const loadCoins = async ({ store, page, limit, search, ids }) => {
   const { dispatch } = store;
 
   try {
-    const response = await CoinCapAPIClient.getCoinByID(action.payload);
+    const response = await CoinCapAPIClient.getCoins({ page, limit, search, ids });
+
+    dispatch(coinsLoaded(response));
+  } catch (err) {
+    dispatch(coinsFailure(err));
+  }
+};
+
+const loadCoinDetails = async ({ store, id }) => {
+  const { dispatch } = store;
+
+  try {
+    const response = await CoinCapAPIClient.getCoinByID(id);
 
     dispatch(coinDetailsLoaded(response));
   } catch (err) {
@@ -27,16 +41,13 @@ const loadCoinDetails = async (store, next, action) => {
   }
 };
 
-const loadCandles = async (store, next, action) => {
-  next(action);
-
-  const { dispatch, getState } = store;
+const loadCandles = async ({ store, id }) => {
+  const { dispatch } = store;
 
   try {
-    const coinID = selectCoinID(getState());
     const response = await CoinCapAPIClient.getCoinHistoryByID({
       interval: defaultTimeInterval,
-      id: coinID,
+      id,
     });
 
     dispatch(candlesLoaded(response));
@@ -45,9 +56,18 @@ const loadCandles = async (store, next, action) => {
   }
 };
 
+const onCoinDetailsVisit = async (store, next, action) => {
+  next(action);
+
+  await Promise.all([
+    loadCoins({ store, limit: 3 }),
+    loadCoinDetails({ store, id: action.payload }),
+    loadCandles({ store, id: action.payload }),
+  ]);
+};
+
 const handlers = {
-  [coinDetailsVisited.type]: loadCoinDetails,
-  [coinDetailsLoaded.type]: loadCandles,
+  [coinDetailsVisited.type]: onCoinDetailsVisit,
 };
 
 const middleware = createMiddleware(handlers);

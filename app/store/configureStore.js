@@ -12,10 +12,15 @@ import {
   candlesMiddleware,
   candlesReducer,
 } from './candles';
+import {
+  coinsMiddleware,
+  coinsReducer,
+} from './coins';
 
 const reducer = {
   candles: candlesReducer,
   coinDetails: coinDetailsReducer,
+  coins: coinsReducer,
   rates: ratesReducer,
 };
 
@@ -24,6 +29,7 @@ const middleware = (getDefaultMiddleware) => getDefaultMiddleware()
     coinDetailsMiddleware,
     ratesMiddleware,
     candlesMiddleware,
+    coinsMiddleware,
   ]);
 
 export const store = configureStore({
