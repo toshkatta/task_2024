@@ -1,13 +1,15 @@
 import { createReducer, current } from '@reduxjs/toolkit';
 
 import { coinListTypes } from '@/domain/Coins';
-import { arrayToById } from '@/domain/Parsing';
+
+import { coinDetailsLoaded, coinDetailsVisited } from '../coinDetails/actions';
 
 import {
   coinToggled,
   coinsFailure,
   coinsLoaded,
   coinsListTypeChanged,
+  coinsRequested,
 } from './actions';
 
 const initialState = {
@@ -16,13 +18,29 @@ const initialState = {
   watchlistedIDs: [],
   isLoading: true,
   hasError: false,
-  listType: coinListTypes.WATCHLIST,
+  listType: coinListTypes.ALL,
 };
 
 const coinsReducer = createReducer(initialState, (builder) => {
+  builder.addCase(coinsRequested, (state) => {
+    state.isLoading = true;
+    state.hasError = false;
+  });
+
   builder.addCase(coinsLoaded, (state, action) => {
-    state.allIDs = action.payload.map((coin) => coin.id);
-    state.byID = arrayToById(action.payload);
+    const currentByID = current(state.byID);
+    const currentIDs = current(state.allIDs);
+    const newIDs = action.payload.map((coin) => coin.id);
+    const allIDs = currentIDs.concat(newIDs);
+    const deduplicated = new Set(allIDs);
+
+    state.allIDs = Array.from(deduplicated);
+
+    state.byID = action.payload.reduce((byId, coin) => ({
+      ...byId,
+      [coin.id]: coin,
+    }), currentByID);
+
     state.isLoading = false;
     state.hasError = false;
   });
@@ -35,8 +53,9 @@ const coinsReducer = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(coinToggled, (state, action) => {
-    const index = current(state.watchlistedIDs).indexOf(action.payload);
+    state.listType = coinListTypes.WATCHLIST;
 
+    const index = current(state.watchlistedIDs).indexOf(action.payload);
     if (index === -1) {
       state.watchlistedIDs.push(action.payload);
       return;
@@ -47,6 +66,22 @@ const coinsReducer = createReducer(initialState, (builder) => {
 
   builder.addCase(coinsListTypeChanged, (state, action) => {
     state.listType = action.payload;
+  });
+
+  builder.addCase(coinDetailsVisited, (state) => {
+    const currentWatchlist = current(state.watchlistedIDs);
+    const currentByID = current(state.byID);
+
+    state.byID = currentWatchlist.reduce((byID, id) => ({
+      ...byID,
+      [id]: currentByID[id],
+    }), {});
+
+    state.allIDs = initialState.allIDs;
+  });
+
+  builder.addCase(coinDetailsLoaded, (state, action) => {
+    state.byID[action.payload.id] = action.payload;
   });
 });
 

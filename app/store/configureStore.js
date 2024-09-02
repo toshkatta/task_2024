@@ -9,27 +9,33 @@ import {
   ratesReducer,
 } from './rates';
 import {
-  candlesMiddleware,
-  candlesReducer,
-} from './candles';
+  coinHistoryMiddleware,
+  coinHistoryReducer,
+} from './coinHistory';
 import {
   coinsMiddleware,
   coinsReducer,
 } from './coins';
+import {
+  walletMiddleware,
+  walletReducer,
+} from './wallet';
 
 const reducer = {
-  candles: candlesReducer,
+  coinHistory: coinHistoryReducer,
   coinDetails: coinDetailsReducer,
   coins: coinsReducer,
   rates: ratesReducer,
+  wallet: walletReducer,
 };
 
 const middleware = (getDefaultMiddleware) => getDefaultMiddleware()
   .concat([
     coinDetailsMiddleware,
     ratesMiddleware,
-    candlesMiddleware,
+    coinHistoryMiddleware,
     coinsMiddleware,
+    walletMiddleware,
   ]);
 
 export const store = configureStore({

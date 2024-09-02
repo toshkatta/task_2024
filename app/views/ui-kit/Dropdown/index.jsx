@@ -13,8 +13,9 @@ const Dropdown = ({
   options,
   onSelect,
   title,
-  className = '',
-  menuClassName = '',
+  className,
+  menuClassName,
+  titleClassName,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -26,6 +27,12 @@ const Dropdown = ({
   const menuClasses = classNames({
     'dropdown-menu': true,
     [menuClassName]: !!menuClassName,
+  });
+
+  const titleClasses = classNames({
+    'dropdown-title': true,
+    pointer: true,
+    [titleClassName]: !!titleClassName,
   });
 
   const menuCallback = () => (
@@ -57,7 +64,7 @@ const Dropdown = ({
         animation="slide-up"
         onVisibleChange={setIsDropdownOpen}
       >
-        <div className="dropdown-title pointer">
+        <div className={titleClasses}>
           {title}
           <ButtonGreyS>
             <i className={dropdownIconClasses} />
@@ -87,6 +94,7 @@ Dropdown.propTypes = {
   ]).isRequired,
   className: PropTypes.string,
   menuClassName: PropTypes.string,
+  titleClassName: PropTypes.string,
 };
 
 export default Dropdown;

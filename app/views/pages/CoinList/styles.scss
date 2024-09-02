@@ -1,0 +1,86 @@
+.coin-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-items: center;
+  gap: 1rem;
+  padding-block: 1rem;
+
+  @media (min-width: 800px) {
+    border-radius: 2rem;
+    margin: 2rem;
+  }
+
+  .list-titles {
+    padding-top: 1rem;
+    border-bottom: 2px solid var(--color-grey);
+  }
+
+  .item {
+    display: grid;
+    grid-template-areas:
+      'logo symbol percent price'
+      'logo symbol percent price'
+    ;
+    grid-template-columns: 3rem 0.4fr 0.4fr 1fr;
+    align-items: center;
+    gap: 0.5rem 1rem;
+
+    @media (min-width: 390px) {
+      grid-template-areas:
+        'logo symbol percent price marketcap'
+        'logo symbol percent price marketcap'
+      ;
+      grid-template-columns: 3rem 0.4fr 0.4fr 1fr 0.4fr;
+    }
+
+    @media (min-width: 460px) {
+      grid-template-areas:
+        'logo symbol percent price marketcap wishlist'
+        'logo symbol percent price marketcap wishlist'
+      ;
+      grid-template-columns: 3rem 0.4fr 0.4fr 1fr 0.4fr 0.3fr;
+    }
+
+    @media (min-width: 550px) {
+      grid-template-areas:
+        'logo name   percent price marketcap wishlist'
+        'logo symbol percent price marketcap wishlist'
+      ;
+      grid-template-columns: 3rem 1fr 0.4fr 1fr 0.4fr 0.3fr;
+    }
+
+    @media (min-width: 770px) {
+      grid-template-areas:
+        'rank logo name   percent price marketcap volume wishlist'
+        'rank logo symbol percent price marketcap volume wishlist'
+      ;
+      grid-template-columns: 4rem 3rem 1fr 0.4fr 1fr 0.4fr 0.4fr 0.3fr;
+    }
+
+    @media (min-width: 1300px) {
+      grid-template-areas:
+        'rank logo name   percent price supply marketcap volume wishlist'
+        'rank logo symbol percent price supply marketcap volume wishlist'
+      ;
+      grid-template-columns: 4rem 3rem 1fr 0.4fr 1fr 1fr 0.4fr 0.4fr 0.3fr;
+    }
+  }
+
+  .coin-name {
+    grid-area: name;
+  }
+
+  .coin-symbol {
+    grid-area: symbol;
+  }
+
+  .self-center {
+    justify-self: center;
+  }
+
+  .load-more-coins {
+    padding-block: 0.25rem;
+    border-top: 2px solid var(--color-grey);
+  }
+}

@@ -1,5 +1,3 @@
-export const defaultLocale = 'en-US';
-
 export const supportedRates = {
   USD: 'usd',
   EUR: 'eur',
@@ -10,7 +8,7 @@ export const defaultRate = supportedRates.USD;
 
 export const rateToLocaleMapping = {
   [supportedRates.USD]: 'en-US',
-  [supportedRates.EUR]: 'en-DE',
+  [supportedRates.EUR]: 'en-EU',
   [supportedRates.GBP]: 'en-GB',
 };
 

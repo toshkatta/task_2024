@@ -6,9 +6,7 @@ import Dropdown from '@/views/ui-kit/Dropdown';
 
 const intervalToTextMapping = {
   [paymentOptions.ONCE]: 'One time purchase',
-  [paymentOptions.DAILY]: 'Once per day',
-  [paymentOptions.WEEKLY]: 'Once per week',
-  [paymentOptions.MONTHLY]: 'Once per month',
+  [paymentOptions.recurring]: 'Recurring payments',
 };
 
 const intervals = Object.values(paymentOptions);

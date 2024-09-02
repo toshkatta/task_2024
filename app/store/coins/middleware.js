@@ -1,33 +1,49 @@
-// import { supportedRates } from '@/domain/Rates';
-
 import createMiddleware from '@/store/middlewareCreator';
 
-// import CoinCapAPIClient from '@/infrastructure/API/http/CoinCapAPIClient';
+import CoinCapAPIClient from '@/infrastructure/API/http/CoinCapAPIClient';
 
-// import { applicationMounted } from '../app/actions';
-// import {
-//   ratesFailure,
-//   ratesLoaded,
-// } from './actions';
+import {
+  coinsFailure,
+  coinsLoaded,
+  coinsRequested,
+} from './actions';
 
-// const loadRates = async (store, next, action) => {
-//   next(action);
-//   const { dispatch } = store;
+const DEFAULT_LIMIT = 15;
 
-//   try {
-//     const responses = await Promise.all(
-//       Object.values(supportedRates)
-//       .map((id) => CoinCapAPIClient.getRateByCurrency(id))
-//     );
+export const loadCoins = async ({ store, page, limit, search, ids }) => {
+  const { dispatch } = store;
 
-//     dispatch(ratesLoaded(responses));
-//   } catch (err) {
-//     dispatch(ratesFailure(err));
-//   }
-// };
+  const offset = page
+    ? (page - 1) * limit
+    : 0;
+
+  try {
+    const responses = await CoinCapAPIClient.getCoins({
+      offset,
+      limit: limit || DEFAULT_LIMIT,
+      search,
+      ids,
+    });
+
+    dispatch(coinsLoaded(responses));
+  } catch (err) {
+    dispatch(coinsFailure(err));
+  }
+};
+
+const onCoinsRequest = async (store, next, action) => {
+  next(action);
+
+  const limit = action.payload?.limit || DEFAULT_LIMIT;
+  const page = action.payload?.page || 1;
+  const search = action.payload?.search;
+  const ids = action.payload?.ids;
+
+  await loadCoins({ store, page, limit, search, ids })
+};
 
 const handlers = {
-  // [applicationMounted.type]: loadRates,
+  [coinsRequested.type]: onCoinsRequest,
 };
 
 const middleware = createMiddleware(handlers);

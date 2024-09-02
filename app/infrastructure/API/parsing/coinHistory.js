@@ -1,21 +1,21 @@
-const coinHistoryRecordToCandle = ({ price, prevClose, time, supply, }) => ({
+const APICoinHistoryRecordToCoinHistoryRecord = ({ price, prevClose, time, supply, }) => ({
   open: prevClose,
   close: price,
   date: time,
   supply,
 });
 
-const APICallHistoryToCallHistory = (c) => ({
+const APICoinHistoryRecordToNumeric = (c) => ({
   supply: parseFloat(c.circulatingSupply),
   price: parseFloat(c.priceUsd),
   time: c.time,
 });
 
-export const callHistoryToCandles = (callHisotry) => {
-  const parsed = callHisotry.map(APICallHistoryToCallHistory);
-  const first = parsed[0];
+export const APICallHistoryToCallHistory = (callHistory) => {
+  const parsed = callHistory.map(APICoinHistoryRecordToNumeric);
+  const first = parsed.shift();
 
-  const initial = coinHistoryRecordToCandle({
+  const initial = APICoinHistoryRecordToCoinHistoryRecord({
     price: first.price,
     prevClose: first.price,
     time: first.time,
@@ -24,13 +24,13 @@ export const callHistoryToCandles = (callHisotry) => {
 
   return parsed
     .reduce((arr, e, i) => {
-      if (!i) return [initial];
-
-      const prev = arr[i - 1];
+      const prev = i > 0
+        ? arr[i - 1]
+        : initial;
 
       return [
         ...arr,
-        coinHistoryRecordToCandle({
+        APICoinHistoryRecordToCoinHistoryRecord({
           price: e.price,
           prevClose: prev.close,
           time: e.time,

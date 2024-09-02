@@ -1,52 +1,81 @@
 @use '../../containers';
 
 .coin-stats {
+  @include containers.coin-details-section;
   display: flex;
   flex-direction: column;
-  @include containers.coin-details-section;
-}
+  gap: 1.5rem;
 
-.coin-stats-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.25rem;
-
-  .logo {
-    aspect-ratio: 1;
-    width: 2rem;
-    height: auto;
+  .coin-stats-header {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 0.5rem;
-    background-color: orange;
-    border-radius: 100%;
+    gap: 1rem;
+
+    .coin-name-container {
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+    }
+
+    .logo {
+      aspect-ratio: 1;
+      width: 2rem;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      background-color: orange;
+      border-radius: 100%;
+    }
+
+    .main-logo {
+      height: 3rem;
+    }
+
+    .watchlist-btn {
+      margin-left: auto;
+    }
   }
 
-  .abbreviation {
-    opacity: 0.5;
+  .coin-stats-body {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: row;
+    gap: 0.75rem;
+
+    @media (min-width: 540px) {
+      display: flex;
+    }
+
+    .coin-price {
+      display: flex;
+      gap: 0.25rem;
+      line-height: 1;
+      padding-right: 0.75rem;
+      border-right: 2px solid rgb(0 0 0 / 0.25);
+    }
+
+    .currency-symbol {
+      align-self: flex-start;
+    }
   }
 
-  .watchlist-btn {
-    margin-left: auto;
+  .currency-dropdown {
+    @media (max-width: 539px) {
+      justify-self: end;
+    }
+
+    @media (min-width: 540px) {
+      margin-left: auto;
+    }
   }
-}
 
-.coin-stats-body {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-
-  .localized-price {
+  .responsive-graph {
+    position: relative;
+    min-height: auto;
+    width: 99%;
     display: flex;
-    gap: 0.25rem;
-    line-height: 1;
-    padding-right: 0.75rem;
-    border-right: 2px solid rgb(0 0 0 / 0.25);
-  }
-
-  .currency-symbol {
-    align-self: flex-start;
   }
 }

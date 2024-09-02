@@ -1,9 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 
+import { transactionTypes } from '@/domain/Transactions';
+
 import {
   coinDetailsLoaded,
   coinDetailsVisited,
 } from './actions';
+import { transactionSuccess } from '../wallet/actions';
 
 const initialState = {
   id: "",
@@ -21,18 +24,14 @@ const initialState = {
 
 const coinDetailsReducer = createReducer(initialState, (builder) => {
   builder.addCase(coinDetailsVisited, () => initialState);
-  builder.addCase(coinDetailsLoaded, (state, action) => {
-    state.id                = action.payload.id;
-    state.rank              = action.payload.rank;
-    state.symbol            = action.payload.symbol;
-    state.name              = action.payload.name;
-    state.supply            = action.payload.supply;
-    state.maxSupply         = action.payload.maxSupply;
-    state.marketCapUsd      = action.payload.marketCapUsd;
-    state.volumeUsd24Hr     = action.payload.volumeUsd24Hr;
-    state.priceUsd          = action.payload.priceUsd;
-    state.changePercent24Hr = action.payload.changePercent24Hr;
-    state.vwap24Hr          = action.payload.vwap24Hr;
+  builder.addCase(coinDetailsLoaded, (state, action) => action.payload);
+  builder.addCase(transactionSuccess, (state, action) => {
+    if (action.payload.type === transactionTypes.BUYING) {
+      state.volumeUsd24Hr += action.payload.usdAmount;
+      return;
+    }
+
+    state.volumeUsd24Hr -= action.payload.usdAmount;
   });
 });
 

@@ -1,15 +1,12 @@
-import { defaultTimeInterval } from '@/domain/Rates';
-
 import createMiddleware from '@/store/middlewareCreator';
 
-import { candlesLoaded } from '@/store/candles/actions';
+import { coinHistoryLoaded } from '@/store/coinHistory/actions';
 
 import CoinCapAPIClient from '@/infrastructure/API/http/CoinCapAPIClient';
 
-import {
-  coinsFailure,
-  coinsLoaded,
-} from '@/store/coins/actions';
+import { selectSelectedInterval } from '../coinHistory/selectors';
+
+import { loadCoins } from '../coins/middleware';
 
 import {
   coinDetailsFailure,
@@ -17,17 +14,6 @@ import {
   coinDetailsVisited,
 } from './actions';
 
-const loadCoins = async ({ store, page, limit, search, ids }) => {
-  const { dispatch } = store;
-
-  try {
-    const response = await CoinCapAPIClient.getCoins({ page, limit, search, ids });
-
-    dispatch(coinsLoaded(response));
-  } catch (err) {
-    dispatch(coinsFailure(err));
-  }
-};
 
 const loadCoinDetails = async ({ store, id }) => {
   const { dispatch } = store;
@@ -41,16 +27,17 @@ const loadCoinDetails = async ({ store, id }) => {
   }
 };
 
-const loadCandles = async ({ store, id }) => {
-  const { dispatch } = store;
+const loadCoinHistory = async ({ store, id }) => {
+  const { dispatch, getState } = store;
 
+  const interval = selectSelectedInterval(getState());
   try {
     const response = await CoinCapAPIClient.getCoinHistoryByID({
-      interval: defaultTimeInterval,
+      interval,
       id,
     });
 
-    dispatch(candlesLoaded(response));
+    dispatch(coinHistoryLoaded(response));
   } catch (err) {
     console.error(err);
   }
@@ -62,7 +49,7 @@ const onCoinDetailsVisit = async (store, next, action) => {
   await Promise.all([
     loadCoins({ store, limit: 3 }),
     loadCoinDetails({ store, id: action.payload }),
-    loadCandles({ store, id: action.payload }),
+    loadCoinHistory({ store, id: action.payload }),
   ]);
 };
 

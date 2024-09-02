@@ -1,0 +1,13 @@
+.watchlist-icon {
+  transition: color 0.1s linear;
+
+  &.is-watchlisted {
+    &:hover {
+      color: var(--color-red);
+    }
+  }
+
+  &:hover {
+    color: var(--color-purple);
+  }
+}

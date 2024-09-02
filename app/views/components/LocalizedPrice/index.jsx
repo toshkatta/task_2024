@@ -2,12 +2,14 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { rateToLocaleMapping } from '@/domain/Rates';
+import { formatPrice } from '@/domain/Localization';
 
 import { selectSelectedRate } from '@/store/rates/selectors';
 
 const LocalizedPrice = ({
   priceUSD,
   cryptocurrency,
+  digits,
   compact = false,
   className = '',
   symbolClassname = '',
@@ -21,15 +23,19 @@ const LocalizedPrice = ({
     : priceUSD / selected.rateUsd;
 
   const locale = rateToLocaleMapping[selected.id];
-  const localized = compact
-    ? price.toLocaleString(locale, { notation: 'compact', maximumFractionDigits: 1 })
-    : price.toLocaleString(locale, { maximumFractionDigits: 2 });
+
+  const formatted = formatPrice({
+    digits,
+    price,
+    compact,
+    locale,
+  });
 
   return (
-    <strong className={className}>
-      { !cryptocurrency && <span className={symbolClassname}>{selected.currencySymbol}</span> }
-      <span>{localized}</span>
-      { cryptocurrency && <span className={symbolClassname}>&nbsp;{cryptocurrency.toUpperCase()}</span> }
+    <strong className={className} title={price}>
+      {!cryptocurrency && <span className={symbolClassname}>{selected.currencySymbol}</span>}
+      <span>{formatted}</span>
+      {cryptocurrency && <span className={symbolClassname}>&nbsp;{cryptocurrency.toUpperCase()}</span>}
     </strong>
   );
 };
@@ -40,6 +46,7 @@ LocalizedPrice.propTypes = {
   compact: PropTypes.bool,
   className: PropTypes.string,
   symbolClassname: PropTypes.string,
+  digits: PropTypes.number,
 };
 
 export default LocalizedPrice;

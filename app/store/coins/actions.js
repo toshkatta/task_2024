@@ -1,5 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
+export const coinsRequested       = createAction('Coins/REQUESTED');
 export const coinsLoaded          = createAction('Coins/LOADED');
 export const coinsFailure         = createAction('Coins/FAILURE');
 export const coinToggled          = createAction('Coins/TOGGLED');

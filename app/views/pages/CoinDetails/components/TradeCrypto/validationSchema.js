@@ -1,8 +1,15 @@
 import * as Yup from 'yup';
 
+import {
+  maximumCryptoTransactionAmount,
+  maximumFiatTransactionAmount,
+  minimumCryptoTransactionAmount,
+  minimumFiatTransactionAmount,
+} from '@/domain/Transactions';
+
 import { isNumeric } from '@/infrastructure/validation/isNumeric';
 
-const tradeCryptoSchema = ({ minimum, maximum }) => Yup.object().shape({
+const tradeCryptoSchema = ({ fiatBalance, coinBalance }) => Yup.object().shape({
   payAmount: Yup.string()
     .test('has a value', 'Please enter a valid amount.', (value) => (
       !!value
@@ -13,12 +20,29 @@ const tradeCryptoSchema = ({ minimum, maximum }) => Yup.object().shape({
     .test('is over 0', 'Please enter a valid number.', (value) => (
       parseFloat(value) > 0
     ))
-    .test('is over the minimm', `We do not support transactions under ${minimum.toLocaleString()}.`, (value) => (
-      parseFloat(value) >= minimum
-    ))
-    .test('is within the limit', `We do not support transactions over ${maximum.toLocaleString()}.`, (value) => (
-      parseFloat(value) < maximum
-    )),
+    .when('isBuying', {
+      is: true,
+      then: (schema) => schema
+        .test('is within the balance', 'Insufficient funds', (value) => (
+          parseFloat(value) <= fiatBalance
+        ))
+        .test('is over the minimum', `We do not support transactions under ${minimumFiatTransactionAmount.toLocaleString()}.`, (value) => (
+          parseFloat(value) >= minimumFiatTransactionAmount
+        ))
+        .test('is within the limit', `We do not support transactions over ${maximumFiatTransactionAmount.toLocaleString()}.`, (value) => (
+          parseFloat(value) < maximumFiatTransactionAmount
+        )),
+      otherwise: (schema) => schema
+        .test('is within the balance', 'Insufficient funds', (value) => (
+          parseFloat(value) <= coinBalance
+        ))
+        .test('is over the minimum', `We do not support transactions under ${minimumCryptoTransactionAmount.toFixed(8)}.`, (value) => (
+          parseFloat(value) >= minimumCryptoTransactionAmount
+        ))
+        .test('is within the limit', `We do not support transactions over ${maximumCryptoTransactionAmount}.`, (value) => (
+          parseFloat(value) < maximumCryptoTransactionAmount
+        ))
+    }),
 });
 
 export default tradeCryptoSchema;

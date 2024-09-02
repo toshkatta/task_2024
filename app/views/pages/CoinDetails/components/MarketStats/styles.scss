@@ -1,17 +1,85 @@
 @use '../../containers';
 
 .market-stats {
-  display: grid;
-  grid-template-rows: 3fr 2fr 1fr 1fr;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-flow: column;
-  align-items: baseline;
   @include containers.coin-details-section;
+  display: grid;
+  align-items: baseline;
+  gap: 1rem;
+  grid-template-areas:
+    'title         title'
+    'popularity    popularity'
+    'activity      activity'
+    'markettitle   volumetitle  '
+    'marketvalue   volumevalue  '
+    'marketpercent volumepercent'
+    'supplytitle   holdtitle'
+    'supplyvalue   holdvalue'
+    'supplypercent holdvalue'
+  ;
+
+  @media (min-width: 540px) {
+    grid-template-rows: 2fr 1.5fr 1fr 1fr;
+    gap: 0.5rem;
+    grid-template-areas:
+      'title         title'
+      'activity      popularity'
+      'markettitle   volumetitle  '
+      'marketvalue   volumevalue  '
+      'marketpercent volumepercent'
+      'supplytitle   holdtitle'
+      'supplyvalue   holdvalue'
+      'supplypercent holdvalue'
+    ;
+  }
+
+  @media (min-width: 780px) {
+    grid-template-areas:
+      'title         activity      activity      popularity'
+      'markettitle   volumetitle   supplytitle   holdtitle'
+      'marketvalue   volumevalue   supplyvalue   holdvalue'
+      'marketpercent volumepercent supplypercent holdvalue'
+    ;
+  }
+
+  .title {
+    grid-area: title;
+  }
+
+  .market-title {
+    grid-area: markettitle;
+  }
+
+  .market-value {
+    grid-area: marketvalue;
+  }
+
+  .market-percent {
+    grid-area: marketpercent;
+  }
+
+  .supply-title {
+    grid-area: supplytitle;
+  }
+
+  .supply-value {
+    grid-area: supplyvalue;
+  }
+
+  .supply-percent {
+    grid-area: supplypercent;
+  }
+
+  .hold-title {
+    grid-area: holdtitle;
+  }
+
+  .hold-days {
+    grid-area: holdvalue;
+  }
 }
 
 .activity-indicator {
-  grid-row: 1;
-  grid-column: 2 / 4;
+  grid-area: activity;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,13 +95,12 @@
 
   .pill {
     width: 4px;
-    border-radius: 1rem;
+    border-radius: 4rem;
   }
 }
 
 .popularity-container {
-  grid-row: 1;
-  grid-column: 4 / -1;
+  grid-area: popularity;
   display: flex;
   align-items: center;
   justify-content: space-between;

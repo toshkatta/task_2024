@@ -6,7 +6,7 @@ import Dropdown from '@/views/ui-kit/Dropdown';
 
 const typeToTextMapping = {
   [coinListTypes.WATCHLIST]: 'Watchlist',
-  [coinListTypes.RANKED]: 'Ranked',
+  [coinListTypes.ALL]: 'All tokens',
 };
 
 const CoinListTypeDropdown = ({

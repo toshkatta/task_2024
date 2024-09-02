@@ -1,4 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import {
   selectRateIDs,
@@ -11,9 +13,7 @@ import Dropdown from '@/views/ui-kit/Dropdown';
 
 import Currency from '../Currency';
 
-import './styles.scss';
-
-const CurrencyDropdown = () => {
+const CurrencyDropdown = ({ className }) => {
   const dispatch = useDispatch();
 
   const rateIDs      = useSelector(selectRateIDs);
@@ -26,8 +26,13 @@ const CurrencyDropdown = () => {
 
   const onSelect = (key) => dispatch(rateSelected(key));
 
+  const classes = classNames({
+    'text-sm': true,
+    [className]: !!className,
+  });
+
   return (
-    <div className="text-sm currency-dropdown">
+    <div className={classes}>
       <Dropdown
         options={options}
         onSelect={onSelect}
@@ -35,6 +40,10 @@ const CurrencyDropdown = () => {
       />
     </div>
   );
+};
+
+CurrencyDropdown.propTypes = {
+  className: PropTypes.string,
 };
 
 export default CurrencyDropdown;

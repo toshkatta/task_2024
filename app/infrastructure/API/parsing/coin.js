@@ -1,6 +1,8 @@
 export const APICoinToCoin = (coin) => ({
-  ...coin,
+  id: coin.id,
   rank: parseFloat(coin.rank),
+  symbol: coin.symbol,
+  name: coin.name,
   supply: parseFloat(coin.supply),
   maxSupply: parseFloat(coin.maxSupply),
   marketCapUsd: parseFloat(coin.marketCapUsd),

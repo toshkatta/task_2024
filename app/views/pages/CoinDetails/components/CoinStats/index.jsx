@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
+import Media from 'react-media';
 
 import {
   selectCoinChangePercent,
@@ -14,12 +14,14 @@ import { coinToggled } from '@/store/coins/actions';
 
 import LocalizedPrice from '@/views/components/LocalizedPrice';
 import ChangePercent from '@/views/components/ChangePercent';
+import CoinLogo from '@/views/components/CoinLogo';
+import WishlistIcon from '@/views/components/WishlistIcon';
 
 import { ButtonGreyL } from '@/views/ui-kit/Button';
 
 import CurrencyDropdown from '../CurrencyDropdown';
 import TimeDropdown from '../TimeDropdown';
-import CandleGraph from '../CandleGraph';
+import CoinHistoryGraph from '../CoinHistoryGraph';
 
 import './styles.scss';
 
@@ -35,41 +37,44 @@ const CoinStats = () => {
 
   const onWatchlistClick = () => dispatch(coinToggled(id));
 
-  const iconClasses = classNames({
-    'fa-star': true,
-    fas: isWatchlisted,
-    'text-purple': isWatchlisted,
-    far: !isWatchlisted,
-    'text-black': !isWatchlisted,
-  });
-
   return (
     <section className="coin-stats">
       <section className="coin-stats-header">
-        <i className={`logo text-white cc ${symbol.toUpperCase()} ${name.toUpperCase()}`} />
-        <h2 className="text-4xl">{name}</h2>
-        <em className="text-sm abbreviation">{symbol}</em>
+        <CoinLogo id={id} coinName={name} className="main-logo" />
+
+        <div className="coin-name-container font-bold">
+          <h1 className="text-2xl">{name}</h1>
+          <h2 className="text-lg opacity-50">{symbol}</h2>
+        </div>
 
         <ButtonGreyL className="watchlist-btn" onClick={onWatchlistClick}>
-          <i className={iconClasses} />
-            { isWatchlisted ? 'Watchlisted' : 'Watchlist' }
+          <WishlistIcon id={id} />
+          <Media query="(min-width: 430px)">
+            <span>{ isWatchlisted ? 'Watchlisted' : 'Watchlist' }</span>
+          </Media>
         </ButtonGreyL>
       </section>
 
       <section className="coin-stats-body">
-        <LocalizedPrice
-          priceUSD={price}
-          className="localized-price text-4xl font-bold"
-          symbolClassname="currency-symbol text-base"
-        />
+        <Media query="(min-width: 380px)">
+          {(matchesQuery) => (
+            <LocalizedPrice
+              priceUSD={price}
+              className={`coin-price font-extrabold text-${matchesQuery ? 4 : 3}xl`}
+              symbolClassname="currency-symbol text-base"
+            />
+          )}
+        </Media>
         <ChangePercent percent={percent} />
 
-        <CurrencyDropdown />
+        <CurrencyDropdown className="currency-dropdown" />
 
         <TimeDropdown />
       </section>
 
-      <CandleGraph />
+      <section className="responsive-graph">
+        <CoinHistoryGraph />
+      </section>
     </section>
   );
 };

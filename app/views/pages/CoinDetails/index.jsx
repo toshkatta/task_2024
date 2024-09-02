@@ -21,7 +21,7 @@ const CoinDetails = () => {
   }, [params.id]);
 
   return (
-    <article className="coin-details full-page">
+    <article key={params.id} className="coin-details full-page">
       <main>
         <CoinStats />
         <MarketStats />

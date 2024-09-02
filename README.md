@@ -1,8 +1,7 @@
-# React + Vite
+Please use `--legacy-peer-deps` when isntalling node modules.
+There are a few UI libraries which are outdated but work fine.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The [https://api.coincap.io]coincap API randomly decides to block requests so if that happens please give it some time and try again.
+I included my API key in the `.env` file for convinience.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+I tried to make the UI responsive with the lowest res device being the iPhone SE (375px width).
